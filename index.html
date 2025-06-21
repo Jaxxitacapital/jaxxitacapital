@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
@@ -54,7 +54,7 @@
       flex-wrap: wrap;
       justify-content: center;
       gap: 18px;
-      margin: 40px 0;
+      margin: 30px 0;
     }
 
     nav a {
@@ -109,16 +109,22 @@
 
     <div class="quote" id="quoteDisplay">Loading Quote...</div>
 
-    <nav id="navLinks">
+    <!-- MAIN NAVIGATION -->
+    <nav>
       <a href="about.html">📘 About</a>
+      <a href="dashboard.html">📋 Main Dashboard</a>
       <a href="admin-dashboard.html">🛠️ Admin Panel</a>
-      <a href="dashboard.html">📋 Dashboard</a>
+      <a href="audit-dashboard.html">🔍 Audit Panel</a>
+      <a href="systems-dashboard.html">💻 Systems Panel</a>
+      <a href="procurement-dashboard.html">📦 Procurement</a>
+      <a href="memberdashboard.html">👥 Member Space</a>
       <a href="profitcalculator.html">📈 Profit Calculator</a>
-      <a href="proposal.html">📝 Proposal</a>
+      <a href="proposal.html">📝 Submit Proposal</a>
       <a href="report.html">📊 Cycle Report</a>
       <a href="system-settings.html">⚙️ System Settings</a>
     </nav>
 
+    <!-- LOGIN/LOGOUT BUTTONS -->
     <nav id="authLinks"></nav>
 
     <div class="contact">
@@ -134,6 +140,7 @@
   </div>
 
   <script>
+    // Rotating Quotes
     const quotes = [
       "“Do not save what is left after spending, but spend what is left after saving.” – Warren Buffett",
       "“Financial freedom is available to those who learn about it and work for it.” – Robert Kiyosaki",
@@ -145,9 +152,9 @@
       "“Discipline is the bridge between goals and accomplishment.” – Jim Rohn",
       "“Success is not final, failure is not fatal: it is the courage to continue that counts.” – Winston Churchill"
     ];
-
     let index = 0;
     const quoteDisplay = document.getElementById("quoteDisplay");
+
     function rotateQuote() {
       quoteDisplay.style.opacity = 0;
       setTimeout(() => {
@@ -156,15 +163,16 @@
         index = (index + 1) % quotes.length;
       }, 500);
     }
+
     rotateQuote();
     setInterval(rotateQuote, 7000);
 
-    // Session simulation for GitHub Pages
+    // Login/Logout Simulation
     const user = localStorage.getItem("user");
     const authNav = document.getElementById("authLinks");
 
     if (user) {
-      authNav.innerHTML = `<a href="#" onclick="logout()" style="background: crimson;">🚪 Logout</a>`;
+      authNav.innerHTML = `<a href="#" onclick="logout()" style="background: crimson;">🚪 Logout (${user})</a>`;
     } else {
       authNav.innerHTML = `
         <a href="login.html">🔐 Login</a>
