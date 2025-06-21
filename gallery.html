@@ -8,7 +8,8 @@
   <style>
     * {
       box-sizing: border-box;
-      margin: 0; padding: 0;
+      margin: 0;
+      padding: 0;
     }
 
     body {
@@ -21,13 +22,13 @@
     h1 {
       text-align: center;
       color: #00ffff;
-      margin-bottom: 10px;
-      text-shadow: 0 0 8px #00ffff88;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px #00ffff88;
     }
 
     .filters {
       text-align: center;
-      margin: 20px auto;
+      margin-bottom: 25px;
     }
 
     .filters button {
@@ -35,22 +36,23 @@
       color: #000;
       border: none;
       margin: 5px;
-      padding: 10px 16px;
+      padding: 10px 18px;
       border-radius: 6px;
       font-weight: bold;
       cursor: pointer;
-      transition: background 0.3s ease;
+      transition: 0.3s ease;
     }
 
     .filters button:hover,
     .filters button.active {
       background: #00cccc;
+      transform: scale(1.05);
     }
 
     .gallery {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 15px;
+      gap: 18px;
       max-width: 1200px;
       margin: auto;
     }
@@ -58,7 +60,14 @@
     .gallery-item {
       position: relative;
       overflow: hidden;
-      transition: transform 0.4s;
+      border-radius: 12px;
+      transition: transform 0.4s, opacity 0.3s;
+    }
+
+    .gallery-item.hide {
+      opacity: 0;
+      transform: scale(0.8);
+      pointer-events: none;
     }
 
     .gallery-item img {
@@ -68,18 +77,18 @@
       border-radius: 10px;
       box-shadow: 0 0 10px #00ffff55;
       cursor: pointer;
-      transition: transform 0.4s ease;
+      transition: transform 0.3s ease;
     }
 
     .gallery-item:hover img {
       transform: scale(1.05);
     }
 
-    .gallery-item .download-btn {
+    .download-btn {
       position: absolute;
       bottom: 10px;
       right: 10px;
-      background: rgba(0,255,255,0.8);
+      background: rgba(0,255,255,0.85);
       color: #000;
       padding: 6px 10px;
       font-size: 13px;
@@ -87,27 +96,28 @@
       border-radius: 5px;
       cursor: pointer;
       display: none;
+      text-decoration: none;
     }
 
     .gallery-item:hover .download-btn {
       display: inline-block;
     }
 
-    /* Lightbox Styles */
     #lightbox {
       display: none;
       position: fixed;
       z-index: 9999;
       top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.95);
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
       justify-content: center;
       align-items: center;
     }
 
     #lightbox img {
       max-width: 90%;
-      max-height: 90%;
+      max-height: 85%;
       border-radius: 12px;
       box-shadow: 0 0 20px #00ffffaa;
     }
@@ -119,22 +129,27 @@
       font-size: 0.9rem;
     }
 
-    @media(max-width: 600px){
+    @media (max-width: 600px) {
       .gallery-item img {
         height: 150px;
+      }
+
+      .download-btn {
+        font-size: 11px;
+        padding: 5px 8px;
       }
     }
   </style>
 </head>
-<body>
 
+<body>
   <h1>📸 Jaxxita Gallery | SmartSurplus Z‑825 Showcase</h1>
 
   <div class="filters">
-    <button class="active" onclick="filterGallery('all')">All</button>
-    <button onclick="filterGallery('moments')">Moments</button>
-    <button onclick="filterGallery('missions')">Missions</button>
-    <button onclick="filterGallery('movement')">Movement</button>
+    <button class="active" onclick="filterGallery('all', this)">All</button>
+    <button onclick="filterGallery('moments', this)">Moments</button>
+    <button onclick="filterGallery('missions', this)">Missions</button>
+    <button onclick="filterGallery('movement', this)">Movement</button>
   </div>
 
   <div class="gallery" id="gallery">
@@ -172,9 +187,9 @@
     </div>
   </div>
 
-  <!-- Lightbox Viewer -->
+  <!-- Lightbox -->
   <div id="lightbox" onclick="closeLightbox()">
-    <img id="lightbox-img" src="">
+    <img id="lightbox-img" src="" alt="Full View">
   </div>
 
   <footer>
@@ -191,22 +206,23 @@
       document.getElementById("lightbox").style.display = "none";
     }
 
-    function filterGallery(category) {
+    function filterGallery(category, btn) {
       const items = document.querySelectorAll(".gallery-item");
       const buttons = document.querySelectorAll(".filters button");
 
-      buttons.forEach(btn => btn.classList.remove("active"));
-      event.target.classList.add("active");
+      // Set active button
+      buttons.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
 
+      // Show/Hide items
       items.forEach(item => {
         if (category === "all") {
-          item.style.display = "block";
+          item.classList.remove("hide");
         } else {
-          item.style.display = item.classList.contains(category) ? "block" : "none";
+          item.classList.toggle("hide", !item.classList.contains(category));
         }
       });
     }
   </script>
-
 </body>
 </html>
