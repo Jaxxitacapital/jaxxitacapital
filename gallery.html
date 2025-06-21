@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gallery | SmartSurplus Z‑825</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet"/>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #000428, #004e92);
+      color: white;
+      padding: 30px 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #00ffff;
+      margin-bottom: 30px;
+      text-shadow: 0 0 10px #00ffff88;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 15px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 0 12px #00ffff44;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Lightbox */
+    #lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 12px;
+      box-shadow: 0 0 20px #00ffffaa;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #ccc;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📸 SmartSurplus Z‑825 Gallery</h1>
+
+  <div class="gallery">
+    <img src="media/gallery1.jpg" alt="Gallery 1" onclick="openLightbox(this.src)">
+    <img src="media/gallery2.jpg" alt="Gallery 2" onclick="openLightbox(this.src)">
+    <img src="media/gallery3.jpg" alt="Gallery 3" onclick="openLightbox(this.src)">
+    <img src="media/gallery4.jpg" alt="Gallery 4" onclick="openLightbox(this.src)">
+    <img src="media/gallery5.jpg" alt="Gallery 5" onclick="openLightbox(this.src)">
+    <img src="media/gallery6.jpg" alt="Gallery 6" onclick="openLightbox(this.src)">
+    <img src="media/gallery7.jpg" alt="Gallery 7" onclick="openLightbox(this.src)">
+    <img src="media/gallery8.jpg" alt="Gallery 8" onclick="openLightbox(this.src)">
+    <img src="media/gallery9.jpg" alt="Gallery 9" onclick="openLightbox(this.src)">
+    <img src="media/gallery10.jpg" alt="Gallery 10" onclick="openLightbox(this.src)">
+  </div>
+
+  <!-- Lightbox -->
+  <div id="lightbox" onclick="closeLightbox()">
+    <img id="lightbox-img" src="" alt="Expanded view">
+  </div>
+
+  <footer>
+    © 2025 Jaxxita Capital • SmartSurplus Z‑825 • Project Skylance Z1
+  </footer>
+
+  <script>
+    function openLightbox(src) {
+      const lb = document.getElementById("lightbox");
+      const img = document.getElementById("lightbox-img");
+      img.src = src;
+      lb.style.display = "flex";
+    }
+
+    function closeLightbox() {
+      document.getElementById("lightbox").style.display = "none";
+    }
+  </script>
+
+</body>
+</html>
