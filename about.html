@@ -1,0 +1,154 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About | SmartSurplus Z-825</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Orbitron&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364),
+        url('https://images.unsplash.com/photo-1581091870622-7b9b19bb3a0c?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+    }
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.82);
+      min-height: 100vh;
+      padding: 60px 30px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 42px;
+      color: #00ffff;
+      text-shadow: 0 0 10px #00ffff88;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    p {
+      max-width: 960px;
+      margin: 20px auto;
+      font-size: 18px;
+      line-height: 1.8;
+      text-align: justify;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 20px;
+      border-left: 5px solid #00ffff88;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #00ffff33;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin: 40px auto 20px;
+    }
+
+    nav a {
+      text-decoration: none;
+      background: #00ffff;
+      color: #000;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-weight: bold;
+      box-shadow: 0 0 10px #00ffff88;
+      transition: 0.3s ease;
+    }
+
+    nav a:hover {
+      background: #00cccc;
+      transform: scale(1.05);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      color: #ccc;
+      font-size: 14px;
+    }
+
+    .welcome {
+      text-align: center;
+      font-size: 16px;
+      color: #ccc;
+      margin-bottom: 20px;
+    }
+
+    @media screen and (max-width: 600px) {
+      h1 {
+        font-size: 28px;
+      }
+
+      p {
+        font-size: 16px;
+        padding: 15px;
+      }
+
+      nav {
+        flex-direction: column;
+        gap: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <h1>🌍 About SmartSurplus Z-825</h1>
+
+    <div id="welcomeMessage" class="welcome"></div>
+
+    <p>
+      <strong>SmartSurplus Z-825</strong> isn’t just a budgeting tool — it’s a living financial engine. Designed and operated by young visionaries under <strong>Jaxxita Capital</strong>, Z-825 is a working system for wealth creation, accountability, and shared financial growth. Born in a university dorm, it has evolved into a self-sustaining model of collective economic discipline.
+    </p>
+
+    <p>
+      This system began within <strong>Rachael Hope House</strong>, run by four university students committed to transforming how students handle money. With routines like monthly reports, proposal vetting, dividend sharing, emergency fund building, and surplus investment, Z-825 shows that real-world financial training can begin early — and thrive.
+    </p>
+
+    <p>
+      We developed weekly roles (Buyers, Auditors, Rotators), conducted briefings, implemented backup systems, and managed capital like a startup would. This culture of clarity, accountability, and action is not accidental — it's a roadmap to long-term freedom.
+    </p>
+
+    <p>
+      Z-825 is more than a student survival guide. It’s a pilot project for <strong>Project Skylance Z1</strong> — a bold move under Jaxxita Enterprises to elevate local financial systems from grassroots to global relevance. It teaches what school doesn’t: budgeting, profit-sharing, investment planning, and financial leadership.
+    </p>
+
+    <p>
+      Our dream? To leave university with working portfolios, functioning financial systems, and the confidence to launch ventures backed by our own capital. SmartSurplus Z-825 is proof that where structure meets intention, generations can be transformed.
+    </p>
+
+    <p style="text-align:center; font-weight:bold; color: #00ffff;">
+      🛠 Powered by Students • Designed for Legacy • Built through Vision
+    </p>
+
+    <nav>
+      <a href="index.html">← Home</a>
+      <a href="login.html">Login</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="proposal.html">Proposals</a>
+      <a href="report.html">Cycle Report</a>
+      <a href="settings.html">Settings</a>
+      <a href="profitcalculator.html">Profit Calc</a>
+      <a href="join.html">Join Now</a>
+    </nav>
+
+    <footer>
+      © 2025 Jaxxita Enterprises • SmartSurplus Z-825 • Skylance Z1 • SilentStream B625
+    </footer>
+  </div>
+
+  <script>
+    // Simulate session name (just for GitHub test)
+    const name = localStorage.getItem('name');
+    if (name) {
+      document.getElementById('welcomeMessage').innerHTML = `Welcome back, <strong>${name}</strong>.`;
+    }
+  </script>
+</body>
+</html>

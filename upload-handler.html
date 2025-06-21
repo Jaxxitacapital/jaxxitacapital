@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Upload Spreadsheet – Ian | SmartSurplus Z-825</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #001f3f, #0074D9);
+      color: #fff;
+      margin: 0;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: rgba(255,255,255,0.08);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0,255,255,0.4);
+    }
+
+    h1 {
+      text-align: center;
+      color: #00ffff;
+    }
+
+    label {
+      display: block;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: none;
+      background: rgba(0,0,0,0.2);
+      color: #fff;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 25px;
+      background: #00ffff;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #00cccc;
+    }
+
+    .message {
+      margin-top: 20px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .success {
+      color: #00ff99;
+    }
+
+    .error {
+      color: #ff8080;
+    }
+
+    .nav {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .nav a {
+      color: #00ffff;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="nav">
+      <a href="systems-dashboard.html">🖥️ Dashboard</a>
+      <a href="upload-handler.html">📤 Upload</a>
+    </div>
+
+    <h1>📤 Upload Spreadsheet</h1>
+
+    <div id="response" class="message"></div>
+
+    <form id="uploadForm">
+      <label for="spreadsheet">Choose Spreadsheet (simulated):</label>
+      <input type="file" id="spreadsheet" required>
+
+      <label for="description">Description:</label>
+      <textarea id="description" rows="3" placeholder="Description of upload..." required></textarea>
+
+      <button type="submit">Upload File</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('uploadForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const file = document.getElementById('spreadsheet').files[0];
+      const description = document.getElementById('description').value.trim();
+
+      if (!file) {
+        document.getElementById('response').innerHTML = '<div class="error">❌ Please select a file to upload.</div>';
+        return;
+      }
+
+      // Simulate saving file metadata to localStorage
+      const uploads = JSON.parse(localStorage.getItem('uploads') || '[]');
+      uploads.push({
+        filename: file.name,
+        description: description,
+        time: new Date().toLocaleString()
+      });
+      localStorage.setItem('uploads', JSON.stringify(uploads));
+
+      document.getElementById('response').innerHTML = `<div class="success">✅ "${file.name}" uploaded successfully (demo only).</div>`;
+      document.getElementById('uploadForm').reset();
+    });
+  </script>
+</body>
+</html>

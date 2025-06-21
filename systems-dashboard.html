@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Systems Dashboard – Ian | Z-825</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Poppins&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --dark-bg: #10101f;
+      --light-bg: #f4f4f4;
+      --accent: #00ffff;
+      --text-light: #fff;
+      --text-dark: #111;
+      --card-bg-dark: rgba(255,255,255,0.05);
+      --card-bg-light: rgba(0,0,0,0.06);
+    }
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: var(--dark-bg) url('https://images.unsplash.com/photo-1526378722484-d733e7be3c74?auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+      background-size: cover;
+      color: var(--text-light);
+      transition: 0.4s ease;
+    }
+    body.light {
+      background-color: var(--light-bg);
+      color: var(--text-dark);
+      background-blend-mode: overlay;
+    }
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 30px 20px;
+      backdrop-filter: blur(6px);
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+    nav a {
+      text-decoration: none;
+      color: var(--accent);
+      margin-right: 12px;
+      font-weight: bold;
+    }
+    .toggle, .logout {
+      padding: 8px 14px;
+      border-radius: 5px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .toggle {
+      background-color: var(--accent);
+      color: #000;
+    }
+    .logout {
+      background-color: crimson;
+      color: white;
+    }
+    h1, h2 {
+      text-align: center;
+      font-family: 'Orbitron', sans-serif;
+      color: var(--accent);
+    }
+    .section {
+      background: var(--card-bg-dark);
+      padding: 20px;
+      margin: 20px 0;
+      border-left: 5px solid var(--accent);
+      border-radius: 10px;
+    }
+    body.light .section {
+      background: var(--card-bg-light);
+    }
+    input[type="file"], textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 6px;
+      border: none;
+    }
+    button.upload-btn {
+      background: var(--accent);
+      color: #000;
+      padding: 10px 20px;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .notification {
+      position: relative;
+      display: inline-block;
+    }
+    .notification .badge {
+      position: absolute;
+      top: -5px;
+      right: -8px;
+      padding: 5px 7px;
+      border-radius: 50%;
+      background: red;
+      color: white;
+      font-size: 12px;
+    }
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 14px;
+      color: #ccc;
+    }
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      nav a {
+        width: 100%;
+        margin: 5px 0;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <div>
+        <a href="index.html">🏠 Main Dashboard</a>
+        <a href="edit-tools.html">🛠️ Edit Tools</a>
+        <a href="backup-data.html">📦 Backup</a>
+        <span class="notification">
+          <a href="#uploads">🔔 Uploads</a>
+          <span class="badge">3</span>
+        </span>
+      </div>
+      <div>
+        <button class="toggle" onclick="toggleTheme()">🌗 Theme</button>
+        <a href="index.html"><button class="logout">Logout</button></a>
+      </div>
+    </nav>
+
+    <h1>Welcome Ian 👋</h1>
+    <h2>Systems & Data | SmartSurplus Z-825</h2>
+
+    <div class="section">
+      <h3>📤 Upload New Spreadsheet</h3>
+      <form onsubmit="alert('📁 Upload demo - GitHub Pages doesn’t support file saving.'); return false;">
+        <input type="file" required>
+        <textarea placeholder="Describe this data..." rows="3"></textarea>
+        <button type="submit" class="upload-btn">Upload File</button>
+      </form>
+    </div>
+
+    <div class="section" id="uploads">
+      <h3>📂 Upload History</h3>
+      <ul>
+        <li style="font-weight:bold;color:#00ffff;">Budget Q2 Summary — <small>2025-06-18</small></li>
+        <li style="font-weight:bold;color:#00ffff;">Audit Cycle Logs — <small>2025-06-15</small></li>
+        <li>Previous Month Data — <small>2025-06-01</small></li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h3>📋 Systems Tasks</h3>
+      <ul>
+        <li>✅ Upload monthly procurement/finance spreadsheets</li>
+        <li>🛠️ Edit or generate custom financial tools</li>
+        <li>📦 Backup database and export secure files</li>
+      </ul>
+    </div>
+
+    <footer>
+      © 2025 SmartSurplus Z-825 • Jaxxita Capital • Skylance Z1 • Systems Panel
+    </footer>
+  </div>
+
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle('light');
+      localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
+    }
+    if (localStorage.getItem('theme') === 'light') {
+      document.body.classList.add('light');
+    }
+  </script>
+</body>
+</html>

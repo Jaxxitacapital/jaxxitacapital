@@ -1,0 +1,224 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Procurement Dashboard | SmartSurplus Z-825</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Poppins&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --dark-bg: #0e0e0e;
+      --light-bg: #f9f9f9;
+      --accent: #00ffff;
+      --text-light: #fff;
+      --text-dark: #000;
+      --card-bg-dark: rgba(255,255,255,0.08);
+      --card-bg-light: rgba(0,0,0,0.06);
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: var(--dark-bg) url('https://images.unsplash.com/photo-1625142037045-d0e0b726bdf0?auto=format&fit=crop&w=1400&q=80') no-repeat center center fixed;
+      background-size: cover;
+      background-blend-mode: darken;
+      color: var(--text-light);
+      transition: all 0.3s ease;
+    }
+
+    body.light {
+      background-color: var(--light-bg);
+      background-blend-mode: overlay;
+      color: var(--text-dark);
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 30px 20px;
+      backdrop-filter: blur(6px);
+    }
+
+    h1, h2 {
+      text-align: center;
+      font-family: 'Orbitron', sans-serif;
+      color: var(--accent);
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--accent);
+      margin-right: 15px;
+      font-weight: bold;
+    }
+
+    .toggle, .logout {
+      padding: 8px 14px;
+      border-radius: 6px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+
+    .toggle {
+      background-color: var(--accent);
+      color: #000;
+    }
+
+    .logout {
+      background-color: crimson;
+      color: #fff;
+    }
+
+    .section {
+      background: var(--card-bg-dark);
+      padding: 20px;
+      margin: 20px 0;
+      border-left: 5px solid var(--accent);
+      border-radius: 10px;
+    }
+
+    body.light .section {
+      background: var(--card-bg-light);
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: none;
+      margin-bottom: 15px;
+    }
+
+    button.submit-btn {
+      background: var(--accent);
+      color: #000;
+      font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #aaa;
+    }
+
+    .error {
+      text-align: center;
+      color: red;
+      background: rgba(255, 0, 0, 0.1);
+      padding: 12px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="dashboard">
+    <nav>
+      <div>
+        <a href="index.html">🏠 Dashboard</a>
+        <a href="report.html">📋 Report</a>
+        <a href="proposal.html">📤 Proposal</a>
+        <a href="settings.html">⚙️ Settings</a>
+      </div>
+      <div>
+        <button class="toggle" onclick="toggleTheme()">🌗 Theme</button>
+        <button class="logout" onclick="logout()">Logout</button>
+      </div>
+    </nav>
+
+    <h1>Procurement Panel</h1>
+    <h2 id="userHeading">David | Procurement & Logistics | SmartSurplus Z-825</h2>
+
+    <div class="section">
+      <h3>🧾 Submit Purchase Receipt</h3>
+      <form onsubmit="event.preventDefault(); alert('✅ Receipt submitted successfully!');">
+        <label for="item">Item Purchased</label>
+        <input type="text" id="item" required placeholder="e.g. Cooking Oil">
+
+        <label for="amount">Amount Spent (KES)</label>
+        <input type="number" id="amount" required placeholder="e.g. 450">
+
+        <label for="date">Date of Purchase</label>
+        <input type="date" id="date" required>
+
+        <label for="notes">Optional Notes</label>
+        <textarea id="notes" placeholder="e.g. Bought at local market"></textarea>
+
+        <button class="submit-btn">Submit</button>
+      </form>
+    </div>
+
+    <div class="section">
+      <h3>💰 Weekly Budget</h3>
+      <p><strong>Weekly Allocation:</strong> KSh 2,500</p>
+      <p><strong>Used:</strong> KSh 1,480</p>
+      <p><strong>Remaining:</strong> KSh 1,020</p>
+    </div>
+
+    <div class="section">
+      <h3>📉 Price Monitor</h3>
+      <ul>
+        <li>Milk: KSh 60 → 68</li>
+        <li>Cooking Oil: KSh 340 → 355</li>
+        <li>Rice: KSh 125 → 122</li>
+      </ul>
+    </div>
+
+    <footer>
+      © 2025 SmartSurplus Z-825 • Jaxxita Enterprises • Skylance Z1 • SilentStream B625
+    </footer>
+  </div>
+
+  <script>
+    // Light/Dark theme toggle
+    function toggleTheme() {
+      document.body.classList.toggle('light');
+      localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
+    }
+
+    // Auto-load theme
+    if (localStorage.getItem('theme') === 'light') {
+      document.body.classList.add('light');
+    }
+
+    // Auto-set today's date
+    window.onload = () => {
+      const today = new Date().toISOString().split('T')[0];
+      const dateField = document.getElementById('date');
+      if (dateField) dateField.value = today;
+    };
+
+    // Simulate session check
+    const user = localStorage.getItem('name') || "";
+    const role = localStorage.getItem('role') || "";
+
+    if (user.toLowerCase() !== "david" || role.toLowerCase() !== "procurement") {
+      document.body.innerHTML = `<div class="container"><div class="error">Access Denied. Please log in as <strong>David (Procurement)</strong>.</div><a href="login.html" style="color: #00ffff;">← Go to Login</a></div>`;
+    }
+
+    function logout() {
+      localStorage.clear();
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>

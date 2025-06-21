@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Submit Receipts – David | SmartSurplus Z-825</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #000428, #004e92);
+      color: #fff;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: rgba(255,255,255,0.05);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,255,255,0.3);
+    }
+
+    h1 {
+      text-align: center;
+      color: #00ffff;
+    }
+
+    label {
+      display: block;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      margin-top: 5px;
+      background: rgba(0,0,0,0.3);
+      color: #fff;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 25px;
+      background: #00ffff;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #00cccc;
+    }
+
+    .nav {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .nav a {
+      color: #00ffff;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    .message {
+      text-align: center;
+      margin-top: 20px;
+      font-weight: bold;
+      color: #00ff99;
+    }
+
+    .error {
+      color: #ff8080;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="nav">
+      <a href="dashboard.html">🏠 Dashboard</a> | 
+      <a href="procurement-dashboard.html">🛒 Procurement Hub</a>
+    </div>
+
+    <h1>🧾 Submit Purchase Receipt</h1>
+
+    <div id="responseMessage" class="message" style="display: none;"></div>
+
+    <form id="receiptForm">
+      <label for="item">Item Purchased</label>
+      <input type="text" name="item" id="item" required>
+
+      <label for="amount">Total Cost (KES)</label>
+      <input type="number" name="amount" id="amount" required>
+
+      <label for="description">Description</label>
+      <textarea name="description" id="description" placeholder="Details of the purchase..." required></textarea>
+
+      <label for="date">Purchase Date</label>
+      <input type="date" name="date" id="date" required>
+
+      <label for="file">Upload Receipt (Image or PDF)</label>
+      <input type="file" name="file" id="file" accept=".jpg,.jpeg,.png,.pdf" required>
+
+      <button type="submit">Submit Receipt</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("receiptForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      // Simulate submission (can save to localStorage if desired)
+      const item = document.getElementById("item").value;
+      const amount = document.getElementById("amount").value;
+      const date = document.getElementById("date").value;
+
+      document.getElementById("responseMessage").style.display = "block";
+      document.getElementById("responseMessage").innerHTML = `✅ Receipt for <strong>${item}</strong> of <strong>KES ${amount}</strong> on <strong>${date}</strong> submitted successfully (demo mode).`;
+
+      document.getElementById("receiptForm").reset();
+    });
+  </script>
+</body>
+</html>

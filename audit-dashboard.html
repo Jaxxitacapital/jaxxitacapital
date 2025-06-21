@@ -1,0 +1,217 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Audit Dashboard – Dennis</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Poppins&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #0c0c1d url('https://images.unsplash.com/photo-1612831819394-23c46b9dc046') center/cover fixed;
+      color: #fff;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 40px 20px;
+      background: rgba(0, 0, 0, 0.88);
+      border-radius: 15px;
+      box-shadow: 0 0 25px #00ffff88;
+    }
+
+    h1 {
+      text-align: center;
+      font-family: 'Orbitron', sans-serif;
+      color: #00ffff;
+      margin-bottom: 30px;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    nav a {
+      text-decoration: none;
+      background: #00ffff;
+      color: #000;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: bold;
+      margin: 5px;
+      box-shadow: 0 0 10px #00ffff88;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      background: #00cccc;
+    }
+
+    .export-buttons {
+      text-align: center;
+      margin: 20px 0;
+      font-size: 1.1em;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      font-size: 0.95rem;
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid #444;
+      background: rgba(255, 255, 255, 0.06);
+      text-align: left;
+    }
+
+    th {
+      background: #00ffff22;
+      color: #00ffff;
+      font-weight: bold;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 0.85em;
+      color: #aaa;
+    }
+
+    canvas {
+      margin-top: 40px;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📊 Audit Dashboard – Dennis</h1>
+
+    <nav>
+      <div>
+        <a href="audit-dashboard.html">🏠 Audit Home</a>
+        <a href="procurement-report.html">📄 Procurement Logs</a>
+        <a href="#">📥 Export (disabled)</a>
+      </div>
+      <div>
+        <a href="index.html">🔒 Logout</a>
+      </div>
+    </nav>
+
+    <div class="export-buttons">
+      <strong>Total Procurement Records: 3</strong>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Item</th>
+          <th>Amount (KES)</th>
+          <th>Date</th>
+          <th>Description</th>
+          <th>Flag / Receipt</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Stationery</td>
+          <td>12,500</td>
+          <td>2025-06-15</td>
+          <td>Bulk pens and books</td>
+          <td>
+            <em>📌 Receipt unclear</em><br>
+            <a href="#">🧾 View</a>
+          </td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Projector</td>
+          <td>38,000</td>
+          <td>2025-05-30</td>
+          <td>Presentation equipment</td>
+          <td>
+            <a href="#">🧾 View</a>
+          </td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Snacks</td>
+          <td>6,000</td>
+          <td>2025-05-28</td>
+          <td>Audit briefing refreshments</td>
+          <td>
+            <em>📌 Suspect duplication</em><br>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <canvas id="budgetChart" height="200"></canvas>
+
+    <script>
+      const labels = ["Feb", "Mar", "Apr", "May", "Jun"];
+      const spent = [20000, 30000, 15000, 42000, 47000];
+      const budget = labels.map(() => 50000);
+
+      const ctx = document.getElementById('budgetChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: 'Actual Spend',
+              backgroundColor: '#00ffff66',
+              data: spent
+            },
+            {
+              label: 'Budget (KES 50,000)',
+              backgroundColor: '#ffcc00aa',
+              data: budget
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+
+      // Simulate access control
+      const name = localStorage.getItem("name");
+      const role = localStorage.getItem("role");
+
+      if (name !== "dennis" || role !== "audit") {
+        alert("Access Denied. You are not Dennis from Audit.");
+        window.location.href = "login.html";
+      }
+    </script>
+
+    <div class="footer">
+      © 2025 Jaxxita Capital • Skylance Z1 • SmartSurplus Z‑825 • Audit Panel – Dennis
+    </div>
+  </div>
+</body>
+</html>

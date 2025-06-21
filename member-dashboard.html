@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Member Dashboard | SmartSurplus Z-825</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Poppins&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: url('https://images.unsplash.com/photo-1497493292307-31c376b6e479?auto=format&fit=crop&w=1400&q=80') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .dashboard {
+      background: rgba(0, 0, 0, 0.85);
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 30px #00ffcc88;
+      width: 90%;
+      max-width: 650px;
+      text-align: center;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.2rem;
+      color: #00ffcc;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin: 0;
+      color: #fff;
+    }
+
+    p {
+      margin-top: 10px;
+      color: #ccc;
+      font-size: 0.95rem;
+    }
+
+    .button {
+      margin-top: 25px;
+      display: inline-block;
+      padding: 12px 20px;
+      background: #00ffcc;
+      color: #000;
+      font-weight: bold;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: 0.3s;
+      margin-right: 10px;
+    }
+
+    .button:hover {
+      background-color: #00e6b0;
+      transform: scale(1.05);
+    }
+
+    .nav-links {
+      margin-top: 30px;
+    }
+
+    footer {
+      margin-top: 30px;
+      font-size: 0.8rem;
+      color: #888;
+    }
+
+    .success {
+      background: #003300;
+      padding: 8px 12px;
+      border-left: 5px solid #00ff00;
+      color: #b0ffb0;
+      margin-top: 15px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <h1>Welcome to SmartSurplus Z-825</h1>
+    <h2 id="usernameDisplay">Hello, Member</h2>
+    <p>You’ve successfully joined the Jaxxita capital system under SmartSurplus.</p>
+    <p>Manage your role, track your surplus, and grow with the Z‑825 Framework.</p>
+
+    <div id="messageBox" class="success" style="display: none;"></div>
+
+    <div class="nav-links">
+      <a href="report.html" class="button">📊 My Reports</a>
+      <a href="finance.html" class="button">💰 Finance Logs</a>
+      <a href="proposal.html" class="button">📄 Submit Proposal</a>
+      <a href="history.txt" class="button" download>📥 My Logs (.txt)</a>
+      <a href="index.html" class="button" onclick="logout()">🚪 Logout</a>
+    </div>
+
+    <footer>
+      © 2025 Jaxxita Enterprises • SmartSurplus Z‑825<br>
+      Powered by Project Skylance Z1 • Member Panel
+    </footer>
+  </div>
+
+  <script>
+    // Simulate user data from session
+    const username = localStorage.getItem("z825_user") || "Member";
+    document.getElementById("usernameDisplay").innerText = `Hello, ${username}`;
+
+    // Optional: Display message if redirected
+    const params = new URLSearchParams(window.location.search);
+    if (params.has("message")) {
+      const msg = decodeURIComponent(params.get("message"));
+      const msgBox = document.getElementById("messageBox");
+      msgBox.style.display = "block";
+      msgBox.textContent = msg;
+    }
+
+    function logout() {
+      localStorage.removeItem("z825_user");
+    }
+  </script>
+</body>
+</html>

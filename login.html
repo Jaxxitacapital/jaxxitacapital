@@ -1,0 +1,180 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login | SmartSurplus Z-825</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: url('https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: white;
+    }
+    .container {
+      background: rgba(0, 0, 0, 0.85);
+      padding: 40px 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 25px #00ffffaa;
+      width: 90%;
+      max-width: 420px;
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 20px;
+      color: #00ffff;
+      text-shadow: 0 0 10px #00ffff99;
+    }
+    input {
+      width: 90%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 6px;
+      border: none;
+      font-size: 16px;
+      background: rgba(255,255,255,0.08);
+      color: white;
+    }
+    .remember {
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      font-size: 14px;
+      color: #ccc;
+      margin: 10px 0;
+    }
+    .remember input {
+      margin-right: 10px;
+      width: 16px;
+      height: 16px;
+    }
+    button {
+      width: 95%;
+      background: #00ffff;
+      color: black;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #00cccc;
+    }
+    .forgot, .signup {
+      margin-top: 12px;
+      font-size: 14px;
+      color: #aaa;
+      cursor: pointer;
+    }
+    .forgot:hover, .signup:hover {
+      color: #00ffff;
+      text-decoration: underline;
+    }
+    .error {
+      color: #ff4444;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .contact {
+      font-size: 14px;
+      margin-top: 25px;
+      color: #ccc;
+    }
+    .contact a {
+      color: #00ffff;
+      text-decoration: none;
+    }
+    .contact a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>SmartSurplus Z-825</h1>
+
+    <div id="error" class="error"></div>
+
+    <form onsubmit="login(event)">
+      <input type="text" id="name" placeholder="Enter your name" required />
+      <input type="password" id="password" placeholder="Enter password" required />
+      <div class="remember">
+        <input type="checkbox" id="remember" />
+        <label for="remember">Remember me</label>
+      </div>
+      <button type="submit">🔐 Sign In</button>
+    </form>
+
+    <span class="forgot" onclick="alert('📞 Contact Eustace at +254 701 279 476 or jaxxitacapital@gmail.com to reset your password.')">
+      Forgot Password?
+    </span><br>
+    <span class="signup" onclick="location.href='register.html'">
+      🚀 Create Account
+    </span>
+
+    <div class="contact">
+      Need help? Contact via
+      <a href="https://wa.me/254701279476" target="_blank">WhatsApp</a> or
+      <a href="mailto:jaxxitacapital@gmail.com">Email</a>.
+    </div>
+  </div>
+
+  <script>
+    // Sample demo users
+    const users = {
+      'ian': { password: '1234', role: 'systems' },
+      'david': { password: 'abc123', role: 'procurement' },
+      'eustace': { password: 'admin123', role: 'executive' }
+    };
+
+    // Role-based redirection
+    const dashboards = {
+      'admin': 'admin-dashboard.html',
+      'executive': 'admin-dashboard.html',
+      'audit': 'audit-dashboard.html',
+      'systems': 'systems-dashboard.html',
+      'procurement': 'procurement-dashboard.html',
+      'member': 'memberdashboard.html'
+    };
+
+    function login(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value.toLowerCase().trim();
+      const password = document.getElementById('password').value;
+      const remember = document.getElementById('remember').checked;
+
+      const user = users[name];
+
+      if (user && user.password === password) {
+        // Simulate session
+        localStorage.setItem('user', name);
+        localStorage.setItem('role', user.role);
+        if (remember) {
+          localStorage.setItem('remember_user', name);
+        }
+
+        // Redirect
+        location.href = dashboards[user.role] || 'index.html';
+      } else {
+        document.getElementById('error').textContent = '❌ Invalid name or password.';
+      }
+    }
+
+    // Auto-login if remembered
+    window.onload = () => {
+      const remembered = localStorage.getItem('remember_user');
+      if (remembered && users[remembered]) {
+        location.href = dashboards[users[remembered].role];
+      }
+    };
+  </script>
+</body>
+</html>

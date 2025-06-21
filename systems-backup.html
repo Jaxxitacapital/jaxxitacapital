@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>System Backup | SmartSurplus Z‑825</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      margin: 0;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: rgba(0, 0, 0, 0.85);
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 0 20px #00ffff99;
+    }
+
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      color: #00ffff;
+      text-align: center;
+    }
+
+    .info {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 1.1em;
+    }
+
+    button {
+      display: block;
+      margin: 20px auto;
+      padding: 14px 28px;
+      background-color: #00ffff;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 1em;
+      color: #000;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #00cccc;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: #bbb;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🧰 Database Backup – Ian</h1>
+    <div class="info">
+      <p>As <strong>System Admin (Ian)</strong>, you can export a backup of the SmartSurplus database.</p>
+      <p><em>Note: GitHub Pages does not support actual database export. This is a visual simulation.</em></p>
+    </div>
+
+    <button onclick="simulateBackup()">📦 Download Backup</button>
+
+    <div id="status" class="info"></div>
+
+    <div class="footer">
+      © 2025 Jaxxita Capital • SmartSurplus Z‑825 • Project Skylance Z1
+    </div>
+  </div>
+
+  <script>
+    const simulateBackup = () => {
+      const status = document.getElementById("status");
+      const user = localStorage.getItem("user");
+      const role = localStorage.getItem("role");
+
+      if (user === "ian" && role === "systems") {
+        status.innerHTML = "✅ Backup simulated! <br> Downloading `smartsurplus_backup.sql`...";
+        setTimeout(() => {
+          const blob = new Blob(["-- SQL BACKUP SIMULATION --\n-- Created by Ian\n"], { type: "text/sql" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "smartsurplus_backup.sql";
+          a.click();
+          URL.revokeObjectURL(url);
+        }, 1000);
+      } else {
+        status.innerHTML = "❌ Access denied. Only Ian (Systems) can perform this action.";
+      }
+    };
+  </script>
+</body>
+</html>
