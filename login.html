@@ -103,7 +103,7 @@
     <div id="error" class="error"></div>
 
     <form onsubmit="login(event)">
-      <input type="text" id="name" placeholder="Enter your name" required />
+      <input type="text" id="name" placeholder="Enter your username" required />
       <input type="password" id="password" placeholder="Enter password" required />
       <div class="remember">
         <input type="checkbox" id="remember" />
@@ -127,7 +127,7 @@
   </div>
 
   <script>
-    // Define users and roles
+    // Predefined users (temporary simulation for frontend use)
     const users = {
       'david':    { password: 'd002', role: 'procurement' },
       'dennis':   { password: 'd001', role: 'audit' },
@@ -135,7 +135,7 @@
       'ian':      { password: 'i001', role: 'systems' }
     };
 
-    // Map roles to dashboard pages
+    // Map roles to dashboards
     const dashboards = {
       'procurement': 'procurement-dashboard.html',
       'audit':       'audit-dashboard.html',
@@ -154,19 +154,19 @@
       const user = users[name];
 
       if (user && user.password === password) {
-        // Simulate session
+        // Store session
         localStorage.setItem('user', name);
         localStorage.setItem('role', user.role);
         if (remember) localStorage.setItem('remember_user', name);
 
-        // Redirect to role-based dashboard
+        // Redirect to dashboard
         window.location.href = dashboards[user.role] || 'dashboard.html';
       } else {
         errorBox.textContent = '❌ Invalid username or password.';
       }
     }
 
-    // Auto-login if remembered
+    // Auto-login if user is remembered
     window.onload = () => {
       const remembered = localStorage.getItem('remember_user');
       if (remembered && users[remembered]) {
