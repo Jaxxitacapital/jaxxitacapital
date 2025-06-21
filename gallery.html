@@ -3,166 +3,107 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Gallery | Jaxxita Capital</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Poppins&display=swap" rel="stylesheet"/>
+  <title>Gallery | SmartSurplus Z‑825</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet"/>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
     body {
+      margin: 0;
       font-family: 'Poppins', sans-serif;
       background: linear-gradient(to right, #000428, #004e92);
-      color: #fff;
-      min-height: 100vh;
-      padding-top: 60px;
+      color: white;
+      padding: 30px 20px;
     }
 
-    header {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background: #0c0c1d;
-      padding: 15px 20px;
+    h1 {
       text-align: center;
-      z-index: 1000;
-      box-shadow: 0 0 10px #00ffffaa;
-    }
-
-    header h1 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.8rem;
       color: #00ffff;
-    }
-
-    nav {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      background: #0c0c1d;
-      padding: 10px 0;
-    }
-
-    nav a {
-      color: #00ffff;
-      text-decoration: none;
-      margin: 8px 12px;
-      font-weight: bold;
-      padding: 8px 16px;
-      border-radius: 5px;
-      transition: background 0.3s ease;
-    }
-
-    nav a:hover {
-      background: #00cccc55;
+      margin-bottom: 30px;
+      text-shadow: 0 0 8px #00ffff88;
     }
 
     .gallery {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
-      padding: 40px 20px;
+      gap: 15px;
+      max-width: 1200px;
+      margin: auto;
     }
 
     .gallery img {
       width: 100%;
-      height: auto;
+      height: 200px;
+      object-fit: cover;
       border-radius: 10px;
-      box-shadow: 0 0 12px #00ffff55;
+      box-shadow: 0 0 10px #00ffff55;
       cursor: pointer;
       transition: transform 0.3s ease;
     }
 
     .gallery img:hover {
-      transform: scale(1.05);
+      transform: scale(1.03);
+    }
+
+    /* Lightbox Styles */
+    #lightbox {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      justify-content: center;
+      align-items: center;
+    }
+
+    #lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 12px;
+      box-shadow: 0 0 20px #00ffffaa;
     }
 
     footer {
       text-align: center;
-      padding: 20px;
+      margin-top: 40px;
+      color: #ccc;
       font-size: 0.9rem;
-      color: #aaa;
-      background: rgba(0,0,0,0.6);
-    }
-
-    /* Modal */
-    .modal {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.8);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-    }
-
-    .modal img {
-      max-width: 90%;
-      max-height: 80%;
-      border: 4px solid #00ffffaa;
-      border-radius: 10px;
-    }
-
-    .modal:target {
-      display: flex;
-    }
-
-    .close-btn {
-      position: absolute;
-      top: 30px;
-      right: 40px;
-      font-size: 30px;
-      color: #fff;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    @media(max-width: 600px){
-      header h1 { font-size: 1.4rem; }
-      nav a { font-size: 14px; padding: 6px 10px; }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>Jaxxita Capital | Showcase Gallery</h1>
-  </header>
-
-  <nav>
-    <a href="index.html">🏠 Home</a>
-    <a href="about.html">📘 About</a>
-    <a href="dashboard.html">📊 Dashboard</a>
-    <a href="contact.html">📞 Contact</a>
-  </nav>
+  <h1>📸 SmartSurplus Z‑825 Gallery</h1>
 
   <div class="gallery">
-    <a href="#img1"><img src="images/image1.jpg" alt="Showcase 1" /></a>
-    <a href="#img2"><img src="images/image2.jpg" alt="Showcase 2" /></a>
-    <a href="#img3"><img src="images/image3.jpg" alt="Showcase 3" /></a>
-    <a href="#img4"><img src="images/image4.jpg" alt="Showcase 4" /></a>
-    <a href="#img5"><img src="images/image5.jpg" alt="Showcase 5" /></a>
-    <a href="#img6"><img src="images/image6.jpg" alt="Showcase 6" /></a>
-    <a href="#img7"><img src="images/image7.jpg" alt="Showcase 7" /></a>
-    <a href="#img8"><img src="images/image8.jpg" alt="Showcase 8" /></a>
+    <img src="images/gallery1.JPG" alt="Gallery 1" onclick="openLightbox(this.src)">
+    <img src="images/gallery2.JPG" alt="Gallery 2" onclick="openLightbox(this.src)">
+    <img src="images/gallery3.JPG" alt="Gallery 3" onclick="openLightbox(this.src)">
+    <img src="images/gallery4.JPG" alt="Gallery 4" onclick="openLightbox(this.src)">
+    <img src="images/gallery5.JPG" alt="Gallery 5" onclick="openLightbox(this.src)">
+    <img src="images/gallery6.JPG" alt="Gallery 6" onclick="openLightbox(this.src)">
+    <img src="images/gallery7.JPG" alt="Gallery 7" onclick="openLightbox(this.src)">
+    <img src="images/gallery8.JPG" alt="Gallery 8" onclick="openLightbox(this.src)">
   </div>
 
-  <!-- Modals -->
-  <div id="img1" class="modal"><a href="#" class="close-btn">✖</a><img src="images/image1.jpg" alt="Preview 1"></div>
-  <div id="img2" class="modal"><a href="#" class="close-btn">✖</a><img src="images/image2.jpg" alt="Preview 2"></div>
-  <div id="img3" class="modal"><a href="#" class="close-btn">✖</a><img src="images/image3.jpg" alt="Preview 3"></div>
-  <div id="img4" class="modal"><a href="#" class="close-btn">✖</a><img src="images/image4.jpg" alt="Preview 4"></div>
-  <div id="img5" class="modal"><a href="#" class="close-btn">✖</a><img src="images/image5.jpg" alt="Preview 5"></div>
-  <div id="img6" class="modal"><a href="#" class="close-btn">✖</a><img src="images/image6.jpg" alt="Preview 6"></div>
-  <div id="img7" class="modal"><a href="#" class="close-btn">✖</a><img src="images/image7.jpg" alt="Preview 7"></div>
-  <div id="img8" class="modal"><a href="#" class="close-btn">✖</a><img src="images/image8.jpg" alt="Preview 8"></div>
+  <!-- Lightbox Viewer -->
+  <div id="lightbox" onclick="closeLightbox()">
+    <img id="lightbox-img" src="">
+  </div>
 
   <footer>
     © 2025 Jaxxita Capital • SmartSurplus Z‑825 • Project Skylance Z1
   </footer>
+
+  <script>
+    function openLightbox(src) {
+      document.getElementById("lightbox-img").src = src;
+      document.getElementById("lightbox").style.display = "flex";
+    }
+
+    function closeLightbox() {
+      document.getElementById("lightbox").style.display = "none";
+    }
+  </script>
 
 </body>
 </html>
