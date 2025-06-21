@@ -7,6 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet"/>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
       font-family: 'Poppins', sans-serif;
       color: #fff;
@@ -14,6 +15,7 @@
         url('https://images.unsplash.com/photo-1549921296-3a6b1b3cf1a3?auto=format&fit=crop&w=1950&q=80') no-repeat center fixed;
       background-size: cover;
     }
+
     .overlay {
       background: rgba(0,0,0,0.75);
       min-height: 100vh;
@@ -22,12 +24,15 @@
       flex-direction: column;
       align-items: center;
     }
+
     h1 {
       font-size: 42px;
       color: #00ffff;
       text-shadow: 0 0 20px #00ffff66;
       margin-bottom: 20px;
+      text-align: center;
     }
+
     .quote {
       max-width: 800px;
       margin: 20px auto;
@@ -40,6 +45,7 @@
       opacity: 0;
       transition: opacity 0.5s ease;
     }
+
     nav {
       margin: 30px 0;
       display: flex;
@@ -47,6 +53,7 @@
       gap: 14px;
       justify-content: center;
     }
+
     nav a {
       background: #00ffff;
       color: black;
@@ -57,6 +64,7 @@
       box-shadow: 0 0 8px #00ffff88;
       transition: background 0.3s, transform 0.3s;
     }
+
     nav a:hover {
       background: #00cccc;
       transform: scale(1.05);
@@ -67,7 +75,8 @@
       text-align: center;
     }
 
-    .music-control button, .music-control input[type="range"] {
+    .music-control button,
+    .music-control input[type="range"] {
       margin: 5px;
       padding: 8px 14px;
       font-weight: bold;
@@ -108,9 +117,10 @@
       margin-top: 40px;
       font-size: 12px;
       color: #aaa;
+      text-align: center;
     }
 
-    @media(max-width:600px){
+    @media(max-width: 600px){
       h1 { font-size: 30px; }
       nav a { padding: 8px 16px; font-size: 14px; }
       .music-control input[type="range"] { width: 100px; }
@@ -155,7 +165,7 @@
   </div>
 
   <script>
-    // 📜 Quotes
+    // 📜 Quote Rotator
     const quotes = [
       "“Do not save what is left after spending, but spend what is left after saving.” – Warren Buffett",
       "“Financial freedom is available to those who learn about it and work for it.” – Robert Kiyosaki",
@@ -213,12 +223,13 @@
       "media/track1.mp3",
       "media/track2.mp3",
       "media/track3.mp3"
+      // Add up to track10.mp3 here
     ];
     let currentTrack = 0;
 
     function loadTrack(index) {
       player.src = playlist[index];
-      player.play().catch(() => alert("Autoplay blocked. Click Play."));
+      player.play().catch(() => {});
     }
 
     function togglePlay() {
@@ -239,7 +250,6 @@
       loadTrack(currentTrack);
     });
 
-    // Autoload first track on click
     window.addEventListener("DOMContentLoaded", () => {
       loadTrack(currentTrack);
     });
