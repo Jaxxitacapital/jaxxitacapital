@@ -1,14 +1,12 @@
-// jaxxitabible/script.js
-
 let bibleData = null;
 let currentBook = null;
 let currentChapter = 1;
 
-// 🧠 Load Bible JSON
 async function init() {
   try {
-    const res = await fetch('offline-bible.json'); // 🔁 Updated filename
+    const res = await fetch('offline-bible.json');
     bibleData = await res.json();
+    document.getElementById('loader')?.remove();
 
     const books = Object.keys(bibleData);
     const bookSelect = document.getElementById('bookSelect');
@@ -20,85 +18,110 @@ async function init() {
       bookSelect.appendChild(opt);
     });
 
-    loadChapters(); // Load chapters for the first book
+    const savedBook = localStorage.getItem('book');
+    const savedChap = localStorage.getItem('chapter');
+
+    if (savedBook) bookSelect.value = savedBook;
+    loadChapters(savedBook || books[0]);
+
+    if (savedChap) {
+      currentChapter = parseInt(savedChap);
+      renderChapter();
+    }
   } catch (err) {
-    alert('⚠️ Failed to load Bible data: ' + err.message);
-    console.error(err);
+    alert("Bible failed to load: " + err.message);
   }
 }
 
-// 📚 Load chapters dynamically
-function loadChapters() {
-  const selectedBook = document.getElementById('bookSelect').value;
-  currentBook = bibleData[selectedBook];
+function loadChapters(book = document.getElementById('bookSelect').value) {
+  currentBook = bibleData[book];
   currentChapter = 1;
+  localStorage.setItem('book', book);
 
   const scroll = document.getElementById('chapterScroll');
   scroll.innerHTML = '';
-
   Object.keys(currentBook).forEach(ch => {
     const btn = document.createElement('button');
     btn.textContent = ch;
-    btn.className = 'chapter-btn';
     btn.onclick = () => {
       currentChapter = parseInt(ch);
+      localStorage.setItem('chapter', ch);
       renderChapter();
     };
     scroll.appendChild(btn);
   });
-
   renderChapter();
 }
 
-// 📖 Render the current chapter
 function renderChapter() {
   if (!currentBook) return;
+  const lang = document.getElementById('languageSelect').value;
   const verses = currentBook[currentChapter];
-  const bookName = document.getElementById('bookSelect').value;
 
-  document.getElementById('verse-ref').textContent = `${bookName} ${currentChapter}`;
-  document.getElementById('verse-text').innerHTML = verses
-    .map((v, i) => `<strong>${i + 1}.</strong> ${v}`)
-    .join('<br>');
+  document.getElementById('verse-ref').textContent =
+    `${document.getElementById('bookSelect').value} ${currentChapter}`;
+
+  document.getElementById('verse-text').innerHTML =
+    verses.map((v, i) => `<strong>${i + 1}.</strong> ${v[lang] || v.en}`).join('<br>');
 }
 
-// 🔊 Read the chapter aloud
 function speakVerse() {
+  const lang = document.getElementById('languageSelect').value;
   const text = document.getElementById('verse-text').innerText;
   const utterance = new SpeechSynthesisUtterance(text);
+  if (lang === "sw") utterance.lang = "sw-KE";
   speechSynthesis.speak(utterance);
 }
 
-// 📋 Copy current verses to clipboard
 function copyVerse() {
-  const text = document.getElementById('verse-text').innerText;
-  navigator.clipboard.writeText(text).then(() => {
-    alert("📋 Verses copied to clipboard!");
-  });
+  navigator.clipboard.writeText(document.getElementById('verse-text').innerText)
+    .then(() => alert("✅ Verses copied!"));
 }
 
-// 🔗 Share via navigator API (if supported)
 function shareVerse() {
   const text = document.getElementById('verse-text').innerText;
   if (navigator.share) {
-    navigator.share({
-      title: 'Jaxxita Bible Verse',
-      text: text,
-    }).catch(err => console.warn("Share canceled or failed", err));
+    navigator.share({ title: 'Bible Verse', text });
   } else {
-    alert("📱 Sharing is not supported in this browser.");
+    alert("Sharing not supported in this browser.");
   }
 }
 
-// 💡 Explain selected verse via OpenAI (mock here)
-function explainVerse() {
-  const query = document.getElementById('verse-ref').textContent;
-  const explanationBox = document.getElementById('ai-response');
-  const aiText = document.getElementById('ai-text');
+function searchVerse() {
+  const input = document.getElementById('searchInput').value.toLowerCase();
+  const lang = document.getElementById('languageSelect').value;
 
-  aiText.textContent = `🤖 This would explain "${query}" using AI. (Connect to API here)`;
-  explanationBox.style.display = 'block';
+  for (const [book, chapters] of Object.entries(bibleData)) {
+    for (const [ch, verses] of Object.entries(chapters)) {
+      for (let i = 0; i < verses.length; i++) {
+        const verseText = verses[i][lang]?.toLowerCase() || "";
+        if (verseText.includes(input)) {
+          document.getElementById('bookSelect').value = book;
+          loadChapters(book);
+          currentChapter = parseInt(ch);
+          renderChapter();
+          return;
+        }
+      }
+    }
+  }
+  alert("❌ Verse not found.");
 }
 
-// 🧠 Load everything once DOM is ready
+function filterByTag(tag) {
+  const lang = document.getElementById('languageSelect').value;
+  const book = document.getElementById('bookSelect').value;
+  const verses = bibleData[book][currentChapter];
+
+  const filtered = verses.filter(v => v.tags?.includes(tag));
+  document.getElementById('verse-text').innerHTML =
+    filtered.length ? filtered.map((v, i) =>
+      `<strong>${i + 1}.</strong> ${v[lang] || v.en}`).join('<br>') :
+      "❌ Hakuna mistari kwa tag hiyo.";
+}
+
+function resetFilter() {
+  renderChapter();
+}
+
 document.addEventListener('DOMContentLoaded', init);
