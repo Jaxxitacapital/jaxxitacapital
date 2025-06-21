@@ -2,114 +2,93 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>SmartSurplus Z-825 | Home</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet"/>
   <style>
-    * { box-sizing: border-box; }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      margin: 0;
       font-family: 'Poppins', sans-serif;
       color: #fff;
       background: linear-gradient(to right, #000428, #004e92),
-        url('https://images.unsplash.com/photo-1549921296-3a6b1b3cf1a3?auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+        url('https://images.unsplash.com/photo-1549921296-3a6b1b3cf1a3?auto=format&fit=crop&w=1950&q=80') no-repeat center fixed;
       background-size: cover;
     }
-
     .overlay {
-      background: rgba(0, 0, 0, 0.75);
-      padding: 60px 20px;
+      background: rgba(0,0,0,0.75);
       min-height: 100vh;
+      padding: 60px 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
     }
-
     h1 {
-      font-size: 48px;
-      text-align: center;
+      font-size: 42px;
       color: #00ffff;
+      text-shadow: 0 0 20px #00ffff66;
       margin-bottom: 20px;
-      text-shadow: 0 0 25px #00ffffaa;
     }
-
     .quote {
       max-width: 800px;
-      margin: 30px auto;
+      margin: 20px auto;
       padding: 20px;
-      background: rgba(255, 255, 255, 0.07);
+      background: rgba(255,255,255,0.07);
       border-left: 5px solid #00ffff;
-      border-radius: 10px;
+      border-radius: 8px;
       font-style: italic;
-      font-size: 18px;
       text-align: center;
-      box-shadow: 0 0 12px #00ffff44;
+      opacity: 0;
       transition: opacity 0.5s ease;
     }
-
     nav {
+      margin: 30px 0;
       display: flex;
       flex-wrap: wrap;
+      gap: 14px;
       justify-content: center;
-      gap: 18px;
-      margin: 40px 0;
     }
-
     nav a {
-      text-decoration: none;
-      color: #000;
       background: #00ffff;
-      padding: 12px 24px;
-      border-radius: 8px;
+      color: black;
+      padding: 10px 20px;
       font-weight: bold;
-      box-shadow: 0 0 10px #00ffff88;
-      transition: all 0.3s ease;
+      border-radius: 6px;
+      text-decoration: none;
+      box-shadow: 0 0 8px #00ffff88;
+      transition: background 0.3s, transform 0.3s;
     }
-
     nav a:hover {
       background: #00cccc;
       transform: scale(1.05);
     }
-
     .contact {
-      margin-top: 40px;
+      margin-top: auto;
       text-align: center;
+      font-size: 14px;
     }
-
     .contact a {
       color: #00ffff;
-      text-decoration: none;
-      font-weight: bold;
-      display: block;
-      margin: 10px 0;
-    }
-
-    .contact a:hover {
       text-decoration: underline;
+      display: block;
+      margin: 6px 0;
     }
-
     footer {
-      text-align: center;
       margin-top: 40px;
-      color: #ccc;
-      font-size: 13px;
+      font-size: 12px;
+      color: #aaa;
     }
-
-    @media screen and (max-width: 600px) {
-      h1 { font-size: 32px; }
-      nav a { padding: 10px 18px; font-size: 14px; }
+    @media(max-width:600px){
+      h1 { font-size: 30px; }
+      nav a { padding: 8px 16px; font-size: 14px; }
     }
   </style>
 </head>
 <body>
   <div class="overlay">
-    <h1>Welcome to SmartSurplus Z-825</h1>
+    <h1>Welcome to SmartSurplus Z‑825</h1>
+    <div class="quote" id="quoteDisplay">Loading quote…</div>
 
-    <div class="quote" id="quoteDisplay">Loading Quote...</div>
-
-    <nav id="navLinks">
+    <nav id="mainNav">
       <a href="about.html">📘 About</a>
       <a href="chatroom.html">💬 Member Chat Room</a>
       <a href="dashboard.html">📋 Dashboard</a>
@@ -119,54 +98,46 @@
       <a href="system-settings.html">⚙️ System Settings</a>
     </nav>
 
-    <nav id="authLinks"></nav>
+    <nav id="authNav"></nav>
 
     <div class="contact">
-      <h2>📞 Contact Us</h2>
-      <a href="https://wa.me/254701279476" target="_blank">💬 WhatsApp: +254 701 279 476</a>
-      <a href="mailto:jaxxitacapital@gmail.com">📧 Email: jaxxitacapital@gmail.com</a>
+      <a href="https://wa.me/254701279476" target="_blank">WhatsApp: +254 701 279 476</a>
+      <a href="mailto:jaxxitacapital@gmail.com">Email: jaxxitacapital@gmail.com</a>
     </div>
-
-    <footer>
-      © 2025 Jaxxita Enterprises. All rights reserved.<br/>
-      SmartSurplus Z-825 | Project Skylance Z1 | SilentStream B625
-    </footer>
+    <footer>© 2025 Jaxxita Enterprises — SmartSurplus Z‑825 • Skylance Z1 • SilentStream B625</footer>
   </div>
 
   <script>
+    // Inspirational quotes rotation
     const quotes = [
-      "“Do not save what is left after spending, but spend what is left after saving.” – Warren Buffett",
-      "“Financial freedom is available to those who learn about it and work for it.” – Robert Kiyosaki",
-      "“It’s not your salary that makes you rich, it’s your spending habits.” – Charles A. Jaffe",
-      "“Wealth is the ability to fully experience life.” – Henry David Thoreau",
-      "“If you would be wealthy, think of saving as well as getting.” – Benjamin Franklin",
-      "“Beware of little expenses. A small leak will sink a great ship.” – Benjamin Franklin",
-      "“An investment in knowledge pays the best interest.” – Benjamin Franklin",
-      "“Discipline is the bridge between goals and accomplishment.” – Jim Rohn",
-      "“Success is not final, failure is not fatal: it is the courage to continue that counts.” – Winston Churchill"
+      "“Do not save what is left after spending…" – Buffett",
+      "“Financial freedom is available to those…" – Kiyosaki",
+      "“It’s not your salary that makes you rich…" – Jaffe",
+      "“Wealth is the ability to fully experience life.” – Thoreau",
     ];
 
-    let index = 0;
-    const quoteDisplay = document.getElementById("quoteDisplay");
-    function rotateQuote() {
-      quoteDisplay.style.opacity = 0;
-      setTimeout(() => {
-        quoteDisplay.textContent = quotes[index];
-        quoteDisplay.style.opacity = 1;
-        index = (index + 1) % quotes.length;
+    let i = 0;
+    const qEl = document.getElementById('quoteDisplay');
+    function showQuote(){
+      qEl.style.opacity = 0;
+      setTimeout(()=>{
+        qEl.textContent = quotes[i];
+        qEl.style.opacity = 1;
+        i = (i+1)%quotes.length;
       }, 500);
     }
-    rotateQuote();
-    setInterval(rotateQuote, 7000);
+    showQuote();
+    setInterval(showQuote, 7000);
 
-    const user = localStorage.getItem("user");
-    const role = localStorage.getItem("role");
-    const authNav = document.getElementById("authLinks");
+    // Authentication links rendering
+    const user = localStorage.getItem('user');
+    const role = localStorage.getItem('role');
+    const authNav = document.getElementById('authNav');
 
     if (user && role) {
       authNav.innerHTML = `
         <a href="${getDashboard(role)}">🚀 Go to Dashboard</a>
-        <a href="#" onclick="logout()" style="background: crimson;">🚪 Logout (${user})</a>
+        <a href="#" onclick="logout()" style="background:#cc0000; color:#fff;">🚪 Logout (${user})</a>
       `;
     } else {
       authNav.innerHTML = `
@@ -175,18 +146,18 @@
       `;
     }
 
-    function getDashboard(role) {
-      const dashboards = {
+    function getDashboard(r){
+      const map = {
         procurement: 'procurement-dashboard.html',
         audit: 'audit-dashboard.html',
         executive: 'admin-dashboard.html',
         systems: 'systems-dashboard.html',
         member: 'chatroom.html'
       };
-      return dashboards[role] || 'dashboard.html';
+      return map[r] || 'dashboard.html';
     }
 
-    function logout() {
+    function logout(){
       localStorage.clear();
       location.reload();
     }
