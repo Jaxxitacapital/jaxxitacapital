@@ -1,0 +1,180 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Submit Proposal | SmartSurplus Z-825</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #141e30, #243b55);
+      color: white;
+      margin: 0;
+      padding: 20px;
+    }
+
+    header {
+      background: #00ffff;
+      color: black;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    header h2 {
+      margin: 0;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #000;
+      background: #fff;
+      padding: 6px 12px;
+      margin-left: 10px;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+      background-color: #ccc;
+    }
+
+    .form-container {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 650px;
+      margin: auto;
+      box-shadow: 0 0 12px rgba(0, 255, 255, 0.3);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #00ffff;
+    }
+
+    label {
+      display: block;
+      margin: 15px 0 5px;
+      font-weight: bold;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      margin-bottom: 15px;
+    }
+
+    input[type="submit"] {
+      background: #00ffff;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+      background: #00cccc;
+    }
+
+    .message {
+      text-align: center;
+      margin: 15px 0;
+      font-weight: bold;
+      color: lime;
+    }
+
+    .error {
+      color: red;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      color: #ccc;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h2>SmartSurplus Z-825</h2>
+  <nav>
+    <a href="index.html">🏠 Home</a>
+    <a href="dashboard.html">📋 Dashboard</a>
+    <a href="report.html">📊 Reports</a>
+    <a href="proposal.html">📝 Proposal</a>
+    <a href="chatroom.html">💬 Chat</a>
+  </nav>
+</header>
+
+<div class="form-container">
+  <h2>📑 Submit Your Project Proposal</h2>
+
+  <div id="messageBox"></div>
+
+  <form id="proposalForm">
+    <label for="projectName">Project Name:</label>
+    <input type="text" id="projectName" required>
+
+    <label for="summary">Summary:</label>
+    <textarea id="summary" rows="4" required></textarea>
+
+    <label for="funding">Funding Required (KSh):</label>
+    <input type="number" id="funding" required>
+
+    <label for="roi">Estimated ROI (%):</label>
+    <input type="number" id="roi" step="0.1" required>
+
+    <label for="timeline">Timeline (e.g., 6 months):</label>
+    <input type="text" id="timeline" required>
+
+    <label for="plan">Upload Business Plan (PDF):</label>
+    <input type="file" id="plan" accept="application/pdf">
+
+    <input type="submit" value="Submit Proposal">
+  </form>
+</div>
+
+<footer>
+  © 2025 Jaxxita Enterprises. All rights reserved.<br/>
+  SmartSurplus Z-825 | Project Skylance Z1 | SilentStream B625
+</footer>
+
+<script>
+  document.getElementById("proposalForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const file = document.getElementById("plan").files[0];
+    const messageBox = document.getElementById("messageBox");
+    messageBox.innerHTML = "";
+
+    if (file && file.type !== "application/pdf") {
+      messageBox.innerHTML = "<p class='error'>❌ Please upload a valid PDF file only.</p>";
+      return;
+    }
+
+    if (file && file.size > 5 * 1024 * 1024) {
+      messageBox.innerHTML = "<p class='error'>❌ File too large. Max allowed is 5MB.</p>";
+      return;
+    }
+
+    messageBox.innerHTML = "<p class='message'>✅ Proposal submitted successfully (mock frontend only).</p>";
+    document.getElementById("proposalForm").reset();
+  });
+</script>
+
+</body>
+</html>
