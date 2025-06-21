@@ -136,15 +136,15 @@
 
     <!-- 🎵 Music Controls -->
     <div class="music-control">
+      <button onclick="prevTrack()">⏮️ Prev</button>
       <button onclick="togglePlay()">▶️ Play / ⏸️ Pause</button>
+      <button onclick="nextTrack()">⏭️ Next</button>
       <button onclick="toggleMute()">🔇 Mute / 🔊</button>
       <input type="range" min="0" max="1" step="0.01" value="0.5" onchange="setVolume(this.value)">
     </div>
 
-    <!-- 🎶 Audio Playlist -->
-    <audio id="bg-music" preload="auto" loop>
-      Your browser does not support the audio element.
-    </audio>
+    <!-- 🎶 Audio Player -->
+    <audio id="bg-music" preload="auto"></audio>
 
     <nav id="authNav"></nav>
 
@@ -209,28 +209,19 @@
       location.reload();
     }
 
-    // 🎵 Music Playlist
+    // 🎵 Music Player
     const player = document.getElementById("bg-music");
     const playlist = [
       "media/track1.mp3",
       "media/track2.mp3",
-      "media/track3.mp3",
-      "media/track4.mp3",
-      "media/track5.mp3",
-      "media/track6.mp3",
-      "media/track7.mp3",
-      "media/track8.mp3",
-      "media/track9.mp3",
-      "media/track10.mp3"
+      "media/track3.mp3"
     ];
     let currentTrack = 0;
 
     function loadTrack(index) {
-      player.src = playlist[index];
-      player.play().catch(() => {
-        // Autoplay might be blocked on mobile
-        console.warn("Autoplay blocked. User interaction required.");
-      });
+      currentTrack = (index + playlist.length) % playlist.length;
+      player.src = playlist[currentTrack];
+      player.play().catch(() => console.warn("Autoplay blocked. Click to start."));
     }
 
     function togglePlay() {
@@ -246,15 +237,28 @@
       player.volume = parseFloat(val);
     }
 
-    player.addEventListener("ended", () => {
+    function nextTrack() {
       currentTrack = (currentTrack + 1) % playlist.length;
       loadTrack(currentTrack);
+    }
+
+    function prevTrack() {
+      currentTrack = (currentTrack - 1 + playlist.length) % playlist.length;
+      loadTrack(currentTrack);
+    }
+
+    player.addEventListener("ended", () => {
+      nextTrack();
     });
 
-    // Autoplay after user interacts
-    window.addEventListener("DOMContentLoaded", () => {
-      loadTrack(currentTrack);
-    });
+    // Only play on first user interaction
+    let interacted = false;
+    document.body.addEventListener("click", () => {
+      if (!interacted) {
+        loadTrack(currentTrack);
+        interacted = true;
+      }
+    }, { once: true });
   </script>
 </body>
 </html>
