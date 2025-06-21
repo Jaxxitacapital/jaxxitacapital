@@ -6,31 +6,6 @@
   <title>📖 Jaxxita Bible Companion</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    #loader {
-      text-align: center;
-      font-weight: bold;
-      padding: 20px;
-      color: #00ffff;
-      font-size: 18px;
-      display: none;
-    }
-    .tag-filters {
-      margin-top: 10px;
-      text-align: center;
-    }
-    .tag-filters button {
-      margin: 5px;
-      padding: 8px 14px;
-      border: none;
-      border-radius: 5px;
-      background: #00ffff;
-      color: #000;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 0 5px #00ffff88;
-    }
-  </style>
 </head>
 <body>
   <header>
@@ -44,8 +19,6 @@
   </header>
 
   <main class="container">
-    <!-- 🔄 Loader -->
-    <div id="loader">📖 Loading Bible verses…</div>
 
     <!-- ✅ Selectors -->
     <div class="selectors">
@@ -63,15 +36,6 @@
       </select>
     </div>
 
-    <!-- 🔖 Tags -->
-    <div class="tag-filters">
-      <strong>💬 Find by Topic:</strong>
-      <button onclick="filterByTag('success')">Success</button>
-      <button onclick="filterByTag('faith')">Faith</button>
-      <button onclick="filterByTag('money')">Money</button>
-      <button onclick="filterByTag('journey')">Journey</button>
-    </div>
-
     <!-- ✅ Book Overview -->
     <div class="intro-box" id="bookIntro" style="display:none;">
       <h3>📘 Book Overview</h3>
@@ -81,8 +45,7 @@
     <!-- ✅ Main Verse Display -->
     <div class="verse-box" id="verseBox">
       <h2 id="verse-ref">📖 Loading...</h2>
-      <img id="verse-image" src="images/blessing.jpg" alt="Verse Illustration"
-           style="max-width: 100%; border-radius: 8px; margin: 10px 0; box-shadow: 0 0 12px #00ffff66;">
+      <img id="verse-image" src="images/blessing.jpg" alt="Verse Illustration" style="max-width: 100%; border-radius: 8px; margin: 10px 0; box-shadow: 0 0 12px #00ffff66;">
       <div id="verse-text">Please wait...</div>
 
       <!-- ✅ Actions -->
@@ -113,6 +76,7 @@
     <small>🌍 Powered by the Spirit • Built with Purpose • Inspired by the Word</small>
   </footer>
 
+  <!-- ✅ JS Logic -->
   <script src="script.js"></script>
 </body>
 </html>
