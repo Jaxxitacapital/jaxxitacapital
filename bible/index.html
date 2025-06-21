@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>📖 Jaxxita Bible Companion</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>📖 Jaxxita Bible Companion</h1>
+    <nav>
+      <a href="../index.html">🏠 Home</a>
+      <a href="../gallery.html">🖼️ Gallery</a>
+      <a href="../about.html">📘 About</a>
+      <a href="../contact.html">📞 Contact</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="selectors">
+      <label>📘 Book:</label>
+      <select id="bookSelect" onchange="loadChapters()"></select>
+
+      <label>🔢 Chapter:</label>
+      <div class="chapter-scroll" id="chapterScroll"></div>
+
+      <label>🌍 Language:</label>
+      <select id="languageSelect" onchange="reloadCurrent()">
+        <option value="en">English</option>
+        <option value="sw">Swahili</option>
+        <option value="fr">French</option>
+      </select>
+    </div>
+
+    <div class="intro-box" id="bookIntro" style="display:none;">
+      <h3>📘 Book Overview</h3>
+      <p id="introText"></p>
+    </div>
+
+    <div class="verse-box" id="verseBox">
+      <h2 id="verse-ref">📖 Loading...</h2>
+      <img id="verse-image" src="images/blessing.jpg" alt="Verse Illustration" style="max-width: 100%; border-radius: 8px; margin: 10px 0; box-shadow: 0 0 12px #00ffff66;">
+      <p id="verse-text">Please wait...</p>
+      <div class="verse-actions">
+        <button onclick="speakVerse()">🔊 Read Aloud</button>
+        <button onclick="copyVerse()">📋 Copy</button>
+        <button onclick="shareVerse()">🔗 Share</button>
+      </div>
+    </div>
+
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="e.g. John 3:16 or 'faith'" />
+      <button onclick="searchVerse()">🔍 Search</button>
+      <button onclick="explainVerse()">💡 Explain</button>
+    </div>
+
+    <div id="ai-response" style="display:none;">
+      <h3>🧠 AI Explanation</h3>
+      <p id="ai-text"></p>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 <strong>Jaxxita Capital</strong> • SmartSurplus Z‑825 • Skylance Z1 • Bible Companion</p>
+    <small>🌍 Powered by the Spirit • Built with Purpose • Inspired by the Word</small>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
