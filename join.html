@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up | SmartSurplus Z-825</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet"/>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #000428, #004e92);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .signup-box {
+      background: rgba(255, 255, 255, 0.07);
+      padding: 40px;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 0 15px #00ffff88;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #00ffff;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+
+    input, select {
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      font-size: 16px;
+      color: #000;
+    }
+
+    button {
+      padding: 12px;
+      background: #00ffff;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      box-shadow: 0 0 10px #00ffffaa;
+    }
+
+    button:hover {
+      background: #00cccc;
+    }
+
+    .login-link {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 0.95rem;
+    }
+
+    .login-link a {
+      color: #00ffff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .login-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="signup-box">
+    <h2>🧾 Sign Up to SmartSurplus</h2>
+    <form action="signup-process.php" method="post">
+      <label for="name">Full Name</label>
+      <input type="text" name="name" id="name" required placeholder="Your full name"/>
+
+      <label for="username">Username</label>
+      <input type="text" name="username" id="username" required placeholder="Choose a username"/>
+
+      <label for="email">Email Address</label>
+      <input type="email" name="email" id="email" required placeholder="Enter a valid email"/>
+
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" required placeholder="Create a password"/>
+
+      <label for="role">Choose Your Role</label>
+      <select name="role" id="role" required>
+        <option value="">-- Select Role --</option>
+        <option value="member">Member</option>
+        <option value="procurement">Procurement</option>
+        <option value="audit">Audit</option>
+        <option value="systems">Systems</option>
+        <option value="executive">Executive</option>
+      </select>
+
+      <button type="submit">🚀 Create Account</button>
+    </form>
+
+    <div class="login-link">
+      Already have an account? <a href="login.html">Login here</a>
+    </div>
+  </div>
+
+</body>
+</html>
