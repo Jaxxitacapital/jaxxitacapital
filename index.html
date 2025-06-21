@@ -13,6 +13,8 @@
       --text-light: #111;
       --accent: #00ffff;
       --card-bg: rgba(255,255,255,0.07);
+      --sidebar-width: 240px;
+      --sidebar-collapsed-width: 65px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -21,28 +23,153 @@
       background: var(--bg-dark);
       color: var(--text-dark);
       transition: all 0.5s ease;
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
     }
     body.light-mode {
       background: var(--bg-light);
       color: var(--text-light);
     }
+
+    /* Sidebar */
+    #sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: var(--sidebar-width);
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(8px);
+      box-shadow: 2px 0 8px rgba(0,255,255,0.2);
+      display: flex;
+      flex-direction: column;
+      padding: 20px 0;
+      transition: width 0.3s ease;
+      z-index: 1000;
+    }
+    body.light-mode #sidebar {
+      background: rgba(255,255,255,0.9);
+      box-shadow: 2px 0 8px rgba(0,255,255,0.15);
+    }
+    #sidebar.collapsed {
+      width: var(--sidebar-collapsed-width);
+    }
+
+    #sidebar .logo {
+      color: var(--accent);
+      font-size: 22px;
+      font-weight: 900;
+      text-align: center;
+      margin-bottom: 30px;
+      white-space: nowrap;
+      overflow: hidden;
+      padding: 0 10px;
+    }
+    body.light-mode #sidebar .logo {
+      color: #00aabb;
+    }
+
+    #sidebar nav {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex-grow: 1;
+      padding: 0 10px;
+    }
+
+    #sidebar nav a {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 18px;
+      font-weight: 600;
+      color: var(--text-dark);
+      background: var(--card-bg);
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 0 8px #00ffff88;
+      transition: background 0.3s, color 0.3s;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    body.light-mode #sidebar nav a {
+      background: rgba(0,0,0,0.05);
+      color: var(--text-light);
+      box-shadow: none;
+    }
+    #sidebar nav a:hover {
+      background: #00cccc;
+      color: #000;
+      box-shadow: 0 0 10px #00ffffcc;
+    }
+
+    #sidebar.collapsed nav a {
+      justify-content: center;
+      padding: 12px 10px;
+    }
+    #sidebar.collapsed nav a span.label {
+      display: none;
+    }
+
+    /* Sidebar toggle button */
+    #sidebarToggle {
+      position: absolute;
+      top: 10px;
+      right: -20px;
+      background: var(--accent);
+      border: none;
+      color: #000;
+      font-weight: bold;
+      font-size: 20px;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      cursor: pointer;
+      box-shadow: 0 0 8px #00ffffcc;
+      transition: background 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #sidebarToggle:hover {
+      background: #00cccc;
+    }
+    body.light-mode #sidebarToggle {
+      background: #00aabb;
+      color: #fff;
+    }
+
+    /* Main content area */
     .overlay {
+      margin-left: var(--sidebar-width);
+      flex-grow: 1;
       min-height: 100vh;
-      padding: 60px 20px;
+      padding: 60px 30px 30px 30px;
       display: flex;
       flex-direction: column;
       align-items: center;
       background: rgba(0,0,0,0.75);
+      transition: margin-left 0.3s ease, background 0.5s ease;
     }
     body.light-mode .overlay {
       background: rgba(255,255,255,0.8);
     }
+    #sidebar.collapsed ~ .overlay {
+      margin-left: var(--sidebar-collapsed-width);
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+
+    /* Titles and quote */
     h1 {
       font-size: 42px;
       color: var(--accent);
       text-shadow: 0 0 20px #00ffff66;
       margin-bottom: 20px;
       text-align: center;
+      user-select: none;
     }
     .quote {
       max-width: 800px;
@@ -55,18 +182,21 @@
       text-align: center;
       opacity: 0;
       transition: opacity 0.5s ease;
+      user-select: none;
     }
     body.light-mode .quote {
       background: rgba(0,0,0,0.05);
     }
-    nav {
-      margin: 30px 0;
+
+    /* Auth nav inside main content */
+    #authNav {
+      margin: 20px 0;
       display: flex;
-      flex-wrap: wrap;
       gap: 14px;
+      flex-wrap: wrap;
       justify-content: center;
     }
-    nav a {
+    #authNav a {
       background: var(--accent);
       color: #000;
       padding: 10px 20px;
@@ -75,15 +205,18 @@
       text-decoration: none;
       box-shadow: 0 0 8px #00ffff88;
       transition: background 0.3s, transform 0.3s;
+      user-select: none;
     }
-    nav a:hover {
+    #authNav a:hover {
       background: #00cccc;
       transform: scale(1.05);
     }
 
+    /* Music control */
     .music-control {
       margin-top: 10px;
       text-align: center;
+      user-select: none;
     }
     .music-control button, .music-control input[type="range"] {
       margin: 5px;
@@ -92,11 +225,13 @@
       border: none;
       border-radius: 6px;
       cursor: pointer;
+      user-select: none;
     }
     .music-control button {
       background: var(--accent);
       color: #000;
       box-shadow: 0 0 8px #00ffffaa;
+      transition: background 0.3s;
     }
     .music-control button:hover {
       background: #00cccc;
@@ -105,10 +240,12 @@
       width: 150px;
     }
 
+    /* Contact links */
     .contact {
       margin-top: auto;
       text-align: center;
       font-size: 14px;
+      user-select: none;
     }
     .contact a {
       color: var(--accent);
@@ -116,28 +253,17 @@
       display: block;
       margin: 6px 0;
     }
+
+    /* Footer */
     footer {
       margin-top: 40px;
       font-size: 12px;
       color: #aaa;
       text-align: center;
+      user-select: none;
     }
 
-    /* 🌙 Toggle & FAB */
-    .toggle-mode {
-      position: fixed;
-      top: 10px;
-      right: 10px;
-      background: var(--accent);
-      color: #000;
-      padding: 6px 12px;
-      border: none;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-      z-index: 999;
-    }
-
+    /* FAB */
     .fab {
       position: fixed;
       bottom: 20px;
@@ -152,48 +278,101 @@
       box-shadow: 0 0 10px #00ffffaa;
       cursor: pointer;
       z-index: 999;
+      user-select: none;
+      transition: background 0.3s;
+    }
+    .fab:hover {
+      background: #00cccc;
     }
 
-    @media(max-width:600px){
-      h1 { font-size: 30px; }
-      nav a { padding: 8px 16px; font-size: 14px; }
-      .music-control input[type="range"] { width: 100px; }
+    /* Toggle Mode Button */
+    .toggle-mode {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: var(--accent);
+      color: #000;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 1001;
+      user-select: none;
+      transition: background 0.3s;
     }
+    .toggle-mode:hover {
+      background: #00cccc;
+    }
+    body.light-mode .toggle-mode {
+      background: #00aabb;
+      color: #fff;
+    }
+
+    /* Responsive */
+    @media(max-width: 768px) {
+      #sidebar {
+        position: fixed;
+        width: var(--sidebar-collapsed-width);
+      }
+      #sidebar.collapsed {
+        width: var(--sidebar-collapsed-width);
+      }
+      .overlay {
+        margin-left: var(--sidebar-collapsed-width);
+        padding: 60px 15px 30px 15px;
+      }
+      #sidebarToggle {
+        top: 10px;
+        right: -18px;
+      }
+      #sidebar nav a span.label {
+        display: none;
+      }
+    }
+
   </style>
 </head>
 <body>
-  <button class="toggle-mode" onclick="toggleTheme()">🌗 Mode</button>
+  <!-- Sidebar -->
+  <aside id="sidebar">
+    <div class="logo" title="SmartSurplus Z-825">SmartSurplus Z-825</div>
+    <nav>
+      <a href="about.html" title="About"><span class="icon">📘</span><span class="label">About</span></a>
+      <a href="chatroom.html" title="Chat Room"><span class="icon">💬</span><span class="label">Chat Room</span></a>
+      <a href="dashboard.html" title="Dashboard"><span class="icon">📋</span><span class="label">Dashboard</span></a>
+      <a href="profitcalculator.html" title="Profit Calculator"><span class="icon">📈</span><span class="label">Profit Calculator</span></a>
+      <a href="proposal.html" title="Proposal"><span class="icon">📝</span><span class="label">Proposal</span></a>
+      <a href="report.html" title="Reports"><span class="icon">📊</span><span class="label">Reports</span></a>
+      <a href="system-settings.html" title="System Settings"><span class="icon">⚙️</span><span class="label">System</span></a>
+      <a href="gallery.html" title="Gallery"><span class="icon">🖼️</span><span class="label">Gallery</span></a>
+      <a href="bible/index.html" title="Bible"><span class="icon">📖</span><span class="label">Bible</span></a>
+      <a href="contact.html" title="Contact"><span class="icon">📞</span><span class="label">Contact</span></a>
+    </nav>
+    <button id="sidebarToggle" aria-label="Toggle Sidebar">⏩</button>
+  </aside>
 
+  <!-- Main Content -->
   <div class="overlay">
+    <button class="toggle-mode" onclick="toggleTheme()">🌗 Mode</button>
+
     <h1>Welcome to SmartSurplus Z‑825</h1>
     <div class="quote" id="quoteDisplay">Loading quote…</div>
 
-    <nav>
-      <a href="about.html">📘 About</a>
-      <a href="chatroom.html">💬 Chat Room</a>
-      <a href="dashboard.html">📋 Dashboard</a>
-      <a href="profitcalculator.html">📈 Profit Calculator</a>
-      <a href="proposal.html">📝 Proposal</a>
-      <a href="report.html">📊 Reports</a>
-      <a href="system-settings.html">⚙️ System</a>
-      <a href="gallery.html">🖼️ Gallery</a>
-      <a href="bible/index.html">📖 Bible</a>
-      <a href="contact.html">📞 Contact</a>
-    </nav>
+    <div id="authNav"></div>
 
-    <div class="music-control">
-      <button onclick="prevTrack()">⏮️</button>
-      <button onclick="togglePlay()">▶️/⏸️</button>
-      <button onclick="nextTrack()">⏭️</button>
-      <button onclick="toggleMute()">🔇/🔊</button>
-      <input type="range" min="0" max="1" step="0.01" value="0.5" onchange="setVolume(this.value)">
+    <div class="music-control" aria-label="Music Controls">
+      <button onclick="prevTrack()" title="Previous Track">⏮️</button>
+      <button onclick="togglePlay()" title="Play/Pause">▶️/⏸️</button>
+      <button onclick="nextTrack()" title="Next Track">⏭️</button>
+      <button onclick="toggleMute()" title="Mute/Unmute">🔇/🔊</button>
+      <input type="range" min="0" max="1" step="0.01" value="0.5" onchange="setVolume(this.value)" aria-label="Volume Control">
     </div>
 
     <audio id="bg-music" preload="auto"></audio>
-    <nav id="authNav"></nav>
 
-    <div class="contact">
-      <a href="https://wa.me/254701279476" target="_blank">WhatsApp: +254 701 279 476</a>
+    <div class="contact" role="contentinfo">
+      <a href="https://wa.me/254701279476" target="_blank" rel="noopener noreferrer">WhatsApp: +254 701 279 476</a>
       <a href="mailto:jaxxitacapital@gmail.com">Email: jaxxitacapital@gmail.com</a>
     </div>
 
@@ -202,11 +381,11 @@
     </footer>
   </div>
 
-  <!-- 🔘 FAB (Bible Link) -->
+  <!-- FAB (Bible Link) -->
   <button class="fab" onclick="location.href='bible/index.html'" title="Open Jaxxita Bible">📖</button>
 
   <script>
-    // 🧠 Quotes
+    // Quotes
     const quotes = [
       "“Do not save what is left after spending, but spend what is left after saving.” – Warren Buffett",
       "“Financial freedom is available to those who learn about it and work for it.” – Robert Kiyosaki",
@@ -220,13 +399,13 @@
       setTimeout(() => {
         qEl.textContent = quotes[i];
         qEl.style.opacity = 1;
-        i = (i+1)%quotes.length;
+        i = (i+1) % quotes.length;
       }, 500);
     }
     showQuote();
     setInterval(showQuote, 7000);
 
-    // 🔐 Auth Navigation
+    // Auth Navigation
     const user = localStorage.getItem('user');
     const role = localStorage.getItem('role');
     const authNav = document.getElementById('authNav');
@@ -241,7 +420,6 @@
         <a href="signup.html">🧾 Sign Up</a>
       `;
     }
-
     function getDashboard(r){
       const map = {
         procurement: 'procurement-dashboard.html',
@@ -252,13 +430,12 @@
       };
       return map[r] || 'dashboard.html';
     }
-
     function logout(){
       localStorage.clear();
       location.reload();
     }
 
-    // 🎵 Music
+    // Music Player
     const player = document.getElementById("bg-music");
     const playlist = [
       "media/track1.mp3",
@@ -272,7 +449,7 @@
       player.play().catch(() => console.warn("Autoplay blocked."));
     }
     function togglePlay() {
-      if (player.src === "") loadTrack(currentTrack);
+      if (!player.src) loadTrack(currentTrack);
       else if (player.paused) player.play();
       else player.pause();
     }
@@ -291,6 +468,7 @@
       loadTrack(currentTrack);
     }
     player.addEventListener("ended", nextTrack);
+
     let interacted = false;
     document.body.addEventListener("click", () => {
       if (!interacted) {
@@ -299,10 +477,28 @@
       }
     }, { once: true });
 
-    // 🌗 Toggle Mode
+    // Toggle theme light/dark
     function toggleTheme() {
       document.body.classList.toggle("light-mode");
     }
+
+    // Sidebar collapse toggle
+    const sidebar = document.getElementById('sidebar');
+    const toggleBtn = document.getElementById('sidebarToggle');
+    toggleBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('collapsed');
+      if (sidebar.classList.contains('collapsed')) {
+        toggleBtn.textContent = '⏪';
+        toggleBtn.title = 'Expand Sidebar';
+      } else {
+        toggleBtn.textContent = '⏩';
+        toggleBtn.title = 'Collapse Sidebar';
+      }
+    });
+
+    // Initialize toggle button title
+    toggleBtn.title = 'Collapse Sidebar';
+
   </script>
 </body>
 </html>
