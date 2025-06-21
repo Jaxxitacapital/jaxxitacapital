@@ -6,25 +6,40 @@
   <title>SmartSurplus Z-825 | Home</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet"/>
   <style>
+    :root {
+      --bg-dark: linear-gradient(to right, #000428, #004e92);
+      --bg-light: #f3faff;
+      --text-dark: #ffffff;
+      --text-light: #111;
+      --accent: #00ffff;
+      --card-bg: rgba(255,255,255,0.07);
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Poppins', sans-serif;
-      color: #fff;
-      background: linear-gradient(to right, #000428, #004e92),
-        url('https://images.unsplash.com/photo-1549921296-3a6b1b3cf1a3?auto=format&fit=crop&w=1950&q=80') no-repeat center fixed;
-      background-size: cover;
+      background: var(--bg-dark);
+      color: var(--text-dark);
+      transition: all 0.5s ease;
+    }
+    body.light-mode {
+      background: var(--bg-light);
+      color: var(--text-light);
     }
     .overlay {
-      background: rgba(0,0,0,0.75);
       min-height: 100vh;
       padding: 60px 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
+      background: rgba(0,0,0,0.75);
+    }
+    body.light-mode .overlay {
+      background: rgba(255,255,255,0.8);
     }
     h1 {
       font-size: 42px;
-      color: #00ffff;
+      color: var(--accent);
       text-shadow: 0 0 20px #00ffff66;
       margin-bottom: 20px;
       text-align: center;
@@ -33,13 +48,16 @@
       max-width: 800px;
       margin: 20px auto;
       padding: 20px;
-      background: rgba(255,255,255,0.07);
-      border-left: 5px solid #00ffff;
+      background: var(--card-bg);
+      border-left: 5px solid var(--accent);
       border-radius: 8px;
       font-style: italic;
       text-align: center;
       opacity: 0;
       transition: opacity 0.5s ease;
+    }
+    body.light-mode .quote {
+      background: rgba(0,0,0,0.05);
     }
     nav {
       margin: 30px 0;
@@ -49,8 +67,8 @@
       justify-content: center;
     }
     nav a {
-      background: #00ffff;
-      color: black;
+      background: var(--accent);
+      color: #000;
       padding: 10px 20px;
       font-weight: bold;
       border-radius: 6px;
@@ -62,6 +80,7 @@
       background: #00cccc;
       transform: scale(1.05);
     }
+
     .music-control {
       margin-top: 10px;
       text-align: center;
@@ -75,7 +94,7 @@
       cursor: pointer;
     }
     .music-control button {
-      background: #00ffff;
+      background: var(--accent);
       color: #000;
       box-shadow: 0 0 8px #00ffffaa;
     }
@@ -84,15 +103,15 @@
     }
     .music-control input[type="range"] {
       width: 150px;
-      vertical-align: middle;
     }
+
     .contact {
       margin-top: auto;
       text-align: center;
       font-size: 14px;
     }
     .contact a {
-      color: #00ffff;
+      color: var(--accent);
       text-decoration: underline;
       display: block;
       margin: 6px 0;
@@ -103,6 +122,38 @@
       color: #aaa;
       text-align: center;
     }
+
+    /* 🌙 Toggle & FAB */
+    .toggle-mode {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: var(--accent);
+      color: #000;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 999;
+    }
+
+    .fab {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--accent);
+      color: #000;
+      font-size: 24px;
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      border: none;
+      box-shadow: 0 0 10px #00ffffaa;
+      cursor: pointer;
+      z-index: 999;
+    }
+
     @media(max-width:600px){
       h1 { font-size: 30px; }
       nav a { padding: 8px 16px; font-size: 14px; }
@@ -111,34 +162,34 @@
   </style>
 </head>
 <body>
+  <button class="toggle-mode" onclick="toggleTheme()">🌗 Mode</button>
+
   <div class="overlay">
     <h1>Welcome to SmartSurplus Z‑825</h1>
     <div class="quote" id="quoteDisplay">Loading quote…</div>
 
     <nav>
       <a href="about.html">📘 About</a>
-      <a href="chatroom.html">💬 Member Chat Room</a>
+      <a href="chatroom.html">💬 Chat Room</a>
       <a href="dashboard.html">📋 Dashboard</a>
       <a href="profitcalculator.html">📈 Profit Calculator</a>
       <a href="proposal.html">📝 Proposal</a>
-      <a href="report.html">📊 Cycle Report</a>
-      <a href="system-settings.html">⚙️ System Settings</a>
+      <a href="report.html">📊 Reports</a>
+      <a href="system-settings.html">⚙️ System</a>
       <a href="gallery.html">🖼️ Gallery</a>
+      <a href="bible/index.html">📖 Bible</a>
       <a href="contact.html">📞 Contact</a>
     </nav>
 
-    <!-- 🎵 Music Controls -->
     <div class="music-control">
-      <button onclick="prevTrack()">⏮️ Prev</button>
-      <button onclick="togglePlay()">▶️ Play / ⏸️ Pause</button>
-      <button onclick="nextTrack()">⏭️ Next</button>
-      <button onclick="toggleMute()">🔇 Mute / 🔊</button>
+      <button onclick="prevTrack()">⏮️</button>
+      <button onclick="togglePlay()">▶️/⏸️</button>
+      <button onclick="nextTrack()">⏭️</button>
+      <button onclick="toggleMute()">🔇/🔊</button>
       <input type="range" min="0" max="1" step="0.01" value="0.5" onchange="setVolume(this.value)">
     </div>
 
-    <!-- 🎶 Audio Player -->
     <audio id="bg-music" preload="auto"></audio>
-
     <nav id="authNav"></nav>
 
     <div class="contact">
@@ -146,11 +197,16 @@
       <a href="mailto:jaxxitacapital@gmail.com">Email: jaxxitacapital@gmail.com</a>
     </div>
 
-    <footer>© 2025 Jaxxita Enterprises — SmartSurplus Z‑825 • Skylance Z1 • SilentStream B625</footer>
+    <footer>
+      © 2025 <strong>Jaxxita Enterprises</strong> — SmartSurplus Z‑825 • Skylance Z1 • SilentStream B625
+    </footer>
   </div>
 
+  <!-- 🔘 FAB (Bible Link) -->
+  <button class="fab" onclick="location.href='bible/index.html'" title="Open Jaxxita Bible">📖</button>
+
   <script>
-    // 📜 Quotes
+    // 🧠 Quotes
     const quotes = [
       "“Do not save what is left after spending, but spend what is left after saving.” – Warren Buffett",
       "“Financial freedom is available to those who learn about it and work for it.” – Robert Kiyosaki",
@@ -161,7 +217,7 @@
     const qEl = document.getElementById('quoteDisplay');
     function showQuote(){
       qEl.style.opacity = 0;
-      setTimeout(()=>{
+      setTimeout(() => {
         qEl.textContent = quotes[i];
         qEl.style.opacity = 1;
         i = (i+1)%quotes.length;
@@ -176,7 +232,7 @@
     const authNav = document.getElementById('authNav');
     if (user && role) {
       authNav.innerHTML = `
-        <a href="${getDashboard(role)}">🚀 Go to Dashboard</a>
+        <a href="${getDashboard(role)}">🚀 Dashboard</a>
         <a href="#" onclick="logout()" style="background:#cc0000; color:#fff;">🚪 Logout (${user})</a>
       `;
     } else {
@@ -202,7 +258,7 @@
       location.reload();
     }
 
-    // 🎵 Music Player
+    // 🎵 Music
     const player = document.getElementById("bg-music");
     const playlist = [
       "media/track1.mp3",
@@ -210,40 +266,31 @@
       "media/track3.mp3"
     ];
     let currentTrack = 0;
-
     function loadTrack(index) {
       currentTrack = (index + playlist.length) % playlist.length;
       player.src = playlist[currentTrack];
-      player.play().catch(() => console.warn("Autoplay blocked. Tap to play."));
+      player.play().catch(() => console.warn("Autoplay blocked."));
     }
-
     function togglePlay() {
       if (player.src === "") loadTrack(currentTrack);
       else if (player.paused) player.play();
       else player.pause();
     }
-
     function toggleMute() {
       player.muted = !player.muted;
     }
-
     function setVolume(val) {
       player.volume = parseFloat(val);
     }
-
     function nextTrack() {
       currentTrack = (currentTrack + 1) % playlist.length;
       loadTrack(currentTrack);
     }
-
     function prevTrack() {
       currentTrack = (currentTrack - 1 + playlist.length) % playlist.length;
       loadTrack(currentTrack);
     }
-
     player.addEventListener("ended", nextTrack);
-
-    // Start music after first interaction
     let interacted = false;
     document.body.addEventListener("click", () => {
       if (!interacted) {
@@ -251,6 +298,11 @@
         interacted = true;
       }
     }, { once: true });
+
+    // 🌗 Toggle Mode
+    function toggleTheme() {
+      document.body.classList.toggle("light-mode");
+    }
   </script>
 </body>
 </html>
