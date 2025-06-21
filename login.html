@@ -17,7 +17,6 @@
       height: 100vh;
       color: white;
     }
-
     .container {
       background: rgba(0, 0, 0, 0.85);
       padding: 40px 30px;
@@ -27,13 +26,11 @@
       max-width: 420px;
       text-align: center;
     }
-
     h1 {
       margin-bottom: 20px;
       color: #00ffff;
       text-shadow: 0 0 10px #00ffff99;
     }
-
     input {
       width: 90%;
       padding: 12px;
@@ -44,7 +41,6 @@
       background: rgba(255,255,255,0.08);
       color: white;
     }
-
     .remember {
       display: flex;
       align-items: center;
@@ -53,13 +49,11 @@
       color: #ccc;
       margin: 10px 0;
     }
-
     .remember input {
       margin-right: 10px;
       width: 16px;
       height: 16px;
     }
-
     button {
       width: 95%;
       background: #00ffff;
@@ -70,40 +64,33 @@
       font-weight: bold;
       cursor: pointer;
     }
-
     button:hover {
       background: #00cccc;
     }
-
     .forgot, .signup {
       margin-top: 12px;
       font-size: 14px;
       color: #aaa;
       cursor: pointer;
     }
-
     .forgot:hover, .signup:hover {
       color: #00ffff;
       text-decoration: underline;
     }
-
     .error {
       color: #ff4444;
       font-weight: bold;
       margin-top: 10px;
     }
-
     .contact {
       font-size: 14px;
       margin-top: 25px;
       color: #ccc;
     }
-
     .contact a {
       color: #00ffff;
       text-decoration: none;
     }
-
     .contact a:hover {
       text-decoration: underline;
     }
@@ -128,7 +115,7 @@
     <span class="forgot" onclick="alert('📞 Contact Eustace at +254 701 279 476 or jaxxitacapital@gmail.com to reset your password.')">
       Forgot Password?
     </span><br>
-    <span class="signup" onclick="location.href='register.html'">
+    <span class="signup" onclick="location.href='signup.html'">
       🚀 Create Account
     </span>
 
@@ -140,23 +127,20 @@
   </div>
 
   <script>
-    // Users and roles
+    // Define users and roles
     const users = {
-      'ian': { password: '1234', role: 'systems' },
-      'david': { password: 'abc123', role: 'procurement' },
-      'eustace': { password: 'admin123', role: 'executive' },
-      'dennis': { password: 'audit789', role: 'audit' },
-      'admin': { password: 'admin999', role: 'admin' }
+      'david':    { password: 'd002', role: 'procurement' },
+      'dennis':   { password: 'd001', role: 'audit' },
+      'eustace':  { password: 'e005', role: 'executive' },
+      'ian':      { password: 'i001', role: 'systems' }
     };
 
-    // Dashboard redirects
+    // Map roles to dashboard pages
     const dashboards = {
-      'admin': 'admin-dashboard.html',
-      'executive': 'admin-dashboard.html',
-      'audit': 'audit-dashboard.html',
-      'systems': 'systems-dashboard.html',
       'procurement': 'procurement-dashboard.html',
-      'member': 'memberdashboard.html'
+      'audit':       'audit-dashboard.html',
+      'executive':   'admin-dashboard.html',
+      'systems':     'systems-dashboard.html'
     };
 
     function login(e) {
@@ -165,18 +149,20 @@
       const name = document.getElementById('name').value.toLowerCase().trim();
       const password = document.getElementById('password').value;
       const remember = document.getElementById('remember').checked;
+      const errorBox = document.getElementById('error');
+
       const user = users[name];
 
       if (user && user.password === password) {
+        // Simulate session
         localStorage.setItem('user', name);
         localStorage.setItem('role', user.role);
-        if (remember) {
-          localStorage.setItem('remember_user', name);
-        }
+        if (remember) localStorage.setItem('remember_user', name);
 
-        location.href = dashboards[user.role] || 'index.html';
+        // Redirect to role-based dashboard
+        window.location.href = dashboards[user.role] || 'dashboard.html';
       } else {
-        document.getElementById('error').textContent = '❌ Invalid name or password.';
+        errorBox.textContent = '❌ Invalid username or password.';
       }
     }
 
@@ -184,7 +170,8 @@
     window.onload = () => {
       const remembered = localStorage.getItem('remember_user');
       if (remembered && users[remembered]) {
-        location.href = dashboards[users[remembered].role];
+        const role = users[remembered].role;
+        window.location.href = dashboards[role] || 'dashboard.html';
       }
     };
   </script>
