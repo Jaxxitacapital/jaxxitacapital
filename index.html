@@ -61,41 +61,59 @@
       background: #00cccc;
       transform: scale(1.05);
     }
+
     .music-control {
       margin-top: 10px;
+      text-align: center;
     }
+
+    .music-control button, .music-control input[type="range"] {
+      margin: 5px;
+      padding: 8px 14px;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
     .music-control button {
       background: #00ffff;
       color: #000;
-      padding: 8px 16px;
-      border: none;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
       box-shadow: 0 0 8px #00ffffaa;
     }
+
     .music-control button:hover {
       background: #00cccc;
     }
+
+    .music-control input[type="range"] {
+      width: 150px;
+      vertical-align: middle;
+    }
+
     .contact {
       margin-top: auto;
       text-align: center;
       font-size: 14px;
     }
+
     .contact a {
       color: #00ffff;
       text-decoration: underline;
       display: block;
       margin: 6px 0;
     }
+
     footer {
       margin-top: 40px;
       font-size: 12px;
       color: #aaa;
     }
+
     @media(max-width:600px){
       h1 { font-size: 30px; }
       nav a { padding: 8px 16px; font-size: 14px; }
+      .music-control input[type="range"] { width: 100px; }
     }
   </style>
 </head>
@@ -104,7 +122,7 @@
     <h1>Welcome to SmartSurplus Z‑825</h1>
     <div class="quote" id="quoteDisplay">Loading quote…</div>
 
-    <nav id="mainNav">
+    <nav>
       <a href="about.html">📘 About</a>
       <a href="chatroom.html">💬 Member Chat Room</a>
       <a href="dashboard.html">📋 Dashboard</a>
@@ -114,14 +132,16 @@
       <a href="system-settings.html">⚙️ System Settings</a>
     </nav>
 
-    <!-- Music Control -->
+    <!-- 🎵 Music Controls -->
     <div class="music-control">
-      <button onclick="playMusic()">🎵 Play Background Music</button>
+      <button onclick="togglePlay()">▶️ Play / ⏸️ Pause</button>
+      <button onclick="toggleMute()">🔇 Mute / 🔊</button>
+      <input type="range" min="0" max="1" step="0.01" value="0.5" onchange="setVolume(this.value)">
     </div>
 
-    <!-- Hidden audio element -->
-    <audio id="bg-music" loop>
-      <source src="media/background-music.mp3" type="audio/mpeg" />
+    <!-- 🎶 Audio Player -->
+    <audio id="bg-music" preload="auto" loop>
+      <source src="media/track1.mp3" type="audio/mpeg" />
       Your browser does not support the audio element.
     </audio>
 
@@ -135,14 +155,13 @@
   </div>
 
   <script>
-    // Quotes
+    // 📜 Quotes
     const quotes = [
       "“Do not save what is left after spending, but spend what is left after saving.” – Warren Buffett",
       "“Financial freedom is available to those who learn about it and work for it.” – Robert Kiyosaki",
       "“It’s not your salary that makes you rich, it’s your spending habits.” – Charles A. Jaffe",
       "“Wealth is the ability to fully experience life.” – Henry David Thoreau"
     ];
-
     let i = 0;
     const qEl = document.getElementById('quoteDisplay');
     function showQuote(){
@@ -156,11 +175,10 @@
     showQuote();
     setInterval(showQuote, 7000);
 
-    // Auth Navigation
+    // 🔐 Auth Navigation
     const user = localStorage.getItem('user');
     const role = localStorage.getItem('role');
     const authNav = document.getElementById('authNav');
-
     if (user && role) {
       authNav.innerHTML = `
         <a href="${getDashboard(role)}">🚀 Go to Dashboard</a>
@@ -189,12 +207,42 @@
       location.reload();
     }
 
-    function playMusic() {
-      const audio = document.getElementById("bg-music");
-      audio.play().catch(e => {
-        alert("🎧 Your browser blocked autoplay. Click 'Play Background Music' to enable.");
-      });
+    // 🎵 Music Logic
+    const player = document.getElementById("bg-music");
+    const playlist = [
+      "media/track1.mp3",
+      "media/track2.mp3",
+      "media/track3.mp3"
+    ];
+    let currentTrack = 0;
+
+    function loadTrack(index) {
+      player.src = playlist[index];
+      player.play().catch(() => alert("Autoplay blocked. Click Play."));
     }
+
+    function togglePlay() {
+      if (player.paused) player.play();
+      else player.pause();
+    }
+
+    function toggleMute() {
+      player.muted = !player.muted;
+    }
+
+    function setVolume(val) {
+      player.volume = parseFloat(val);
+    }
+
+    player.addEventListener("ended", () => {
+      currentTrack = (currentTrack + 1) % playlist.length;
+      loadTrack(currentTrack);
+    });
+
+    // Autoload first track on click
+    window.addEventListener("DOMContentLoaded", () => {
+      loadTrack(currentTrack);
+    });
   </script>
 </body>
 </html>
