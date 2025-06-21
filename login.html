@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -17,6 +17,7 @@
       height: 100vh;
       color: white;
     }
+
     .container {
       background: rgba(0, 0, 0, 0.85);
       padding: 40px 30px;
@@ -26,11 +27,13 @@
       max-width: 420px;
       text-align: center;
     }
+
     h1 {
       margin-bottom: 20px;
       color: #00ffff;
       text-shadow: 0 0 10px #00ffff99;
     }
+
     input {
       width: 90%;
       padding: 12px;
@@ -41,6 +44,7 @@
       background: rgba(255,255,255,0.08);
       color: white;
     }
+
     .remember {
       display: flex;
       align-items: center;
@@ -49,11 +53,13 @@
       color: #ccc;
       margin: 10px 0;
     }
+
     .remember input {
       margin-right: 10px;
       width: 16px;
       height: 16px;
     }
+
     button {
       width: 95%;
       background: #00ffff;
@@ -64,33 +70,40 @@
       font-weight: bold;
       cursor: pointer;
     }
+
     button:hover {
       background: #00cccc;
     }
+
     .forgot, .signup {
       margin-top: 12px;
       font-size: 14px;
       color: #aaa;
       cursor: pointer;
     }
+
     .forgot:hover, .signup:hover {
       color: #00ffff;
       text-decoration: underline;
     }
+
     .error {
       color: #ff4444;
       font-weight: bold;
       margin-top: 10px;
     }
+
     .contact {
       font-size: 14px;
       margin-top: 25px;
       color: #ccc;
     }
+
     .contact a {
       color: #00ffff;
       text-decoration: none;
     }
+
     .contact a:hover {
       text-decoration: underline;
     }
@@ -127,14 +140,14 @@
   </div>
 
   <script>
-    // Sample demo users
+    // Updated demo users including Dennis
     const users = {
       'ian': { password: '1234', role: 'systems' },
       'david': { password: 'abc123', role: 'procurement' },
-      'eustace': { password: 'admin123', role: 'executive' }
+      'eustace': { password: 'admin123', role: 'executive' },
+      'dennis': { password: 'audit789', role: 'audit' }
     };
 
-    // Role-based redirection
     const dashboards = {
       'admin': 'admin-dashboard.html',
       'executive': 'admin-dashboard.html',
@@ -154,21 +167,17 @@
       const user = users[name];
 
       if (user && user.password === password) {
-        // Simulate session
         localStorage.setItem('user', name);
         localStorage.setItem('role', user.role);
         if (remember) {
           localStorage.setItem('remember_user', name);
         }
-
-        // Redirect
         location.href = dashboards[user.role] || 'index.html';
       } else {
         document.getElementById('error').textContent = '❌ Invalid name or password.';
       }
     }
 
-    // Auto-login if remembered
     window.onload = () => {
       const remembered = localStorage.getItem('remember_user');
       if (remembered && users[remembered]) {
