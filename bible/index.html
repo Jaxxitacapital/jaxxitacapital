@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>📖 Jaxxita Bible Companion - Swahili</title>
+  <title>📖 Jaxxita Bible Companion - Kiswahili</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet"/>
 </head>
 <body>
-  <!-- Loader -->
+  <!-- ⏳ Loader -->
   <div id="loader" style="
     position:fixed;top:0;left:0;width:100%;height:100%;
     display:flex;align-items:center;justify-content:center;
@@ -21,11 +21,16 @@
     <nav>
       <a href="../index.html">🏠 Nyumbani</a>
       <a href="../about.html">ℹ️ Kuhusu</a>
+      <a href="../gallery.html">🖼️ Maktaba</a>
+      <a href="../contact.html">📞 Wasiliana Nasi</a>
+      <a href="../dashboard.html">📋 Dashibodi</a>
+      <a href="../chatroom.html">💬 Chumba Cha Gumzo</a>
+      <a href="../system-settings.html">⚙️ Mipangilio</a>
     </nav>
   </header>
 
   <main class="container">
-    <!-- Book and Chapter -->
+    <!-- 📘 Chagua Kitabu & Sura -->
     <div class="selectors">
       <label>📘 Kitabu:</label>
       <select id="bookSelect" onchange="loadChapters()"></select>
@@ -35,12 +40,12 @@
 
       <label>🌍 Lugha:</label>
       <select id="languageSelect" onchange="renderChapter()">
-        <option value="sw">Kiswahili</option>
+        <option value="sw" selected>Kiswahili</option>
         <option value="en">English</option>
       </select>
     </div>
 
-    <!-- Tags Filter -->
+    <!-- 🔖 Tag Filter -->
     <div style="margin:10px 0;">
       <strong>🔖 Chuja Kwa Tag:</strong>
       <button onclick="filterByTag('faith')">🛐 Imani</button>
@@ -49,7 +54,7 @@
       <button onclick="resetFilter()">🔄 Rudisha</button>
     </div>
 
-    <!-- Display Verses -->
+    <!-- 📖 Maandiko -->
     <div class="verse-box">
       <h2 id="verse-ref">📖 Inapakia...</h2>
       <div id="verse-text">Tafadhali subiri...</div>
@@ -60,17 +65,31 @@
       </div>
     </div>
 
-    <!-- Search -->
+    <!-- 🔍 Tafuta -->
     <div class="search-box">
       <input type="text" id="searchInput" placeholder="Tafuta 'imani', 'baraka', au Mathayo 5:3" />
       <button onclick="searchVerse()">🔍 Tafuta</button>
+    </div>
+
+    <!-- 🧠 AI Ufafanuzi -->
+    <div id="ai-response" style="display:none;">
+      <h3>🧠 Ufafanuzi wa AI</h3>
+      <p id="ai-text"></p>
     </div>
   </main>
 
   <footer>
     <p>© 2025 <strong>Jaxxita Capital</strong> • Bible Companion • Kiswahili Edition</p>
+    <small>🕊️ Imejengwa kwa imani. Imetolewa kwa upendo.</small>
   </footer>
 
   <script src="script.js"></script>
+  <script>
+    // ✅ On Load - Hide Loader
+    window.addEventListener('load', () => {
+      const loader = document.getElementById('loader');
+      loader.style.display = 'none';
+    });
+  </script>
 </body>
 </html>
