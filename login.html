@@ -140,14 +140,16 @@
   </div>
 
   <script>
-    // Updated demo users including Dennis
+    // Users and roles
     const users = {
       'ian': { password: '1234', role: 'systems' },
       'david': { password: 'abc123', role: 'procurement' },
       'eustace': { password: 'admin123', role: 'executive' },
-      'dennis': { password: 'audit789', role: 'audit' }
+      'dennis': { password: 'audit789', role: 'audit' },
+      'admin': { password: 'admin999', role: 'admin' }
     };
 
+    // Dashboard redirects
     const dashboards = {
       'admin': 'admin-dashboard.html',
       'executive': 'admin-dashboard.html',
@@ -163,7 +165,6 @@
       const name = document.getElementById('name').value.toLowerCase().trim();
       const password = document.getElementById('password').value;
       const remember = document.getElementById('remember').checked;
-
       const user = users[name];
 
       if (user && user.password === password) {
@@ -172,12 +173,14 @@
         if (remember) {
           localStorage.setItem('remember_user', name);
         }
+
         location.href = dashboards[user.role] || 'index.html';
       } else {
         document.getElementById('error').textContent = '❌ Invalid name or password.';
       }
     }
 
+    // Auto-login if remembered
     window.onload = () => {
       const remembered = localStorage.getItem('remember_user');
       if (remembered && users[remembered]) {
