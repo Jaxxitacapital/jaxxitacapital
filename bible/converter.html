@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <title>Swahili Bible JSON Converter</title>
+  <style>
+    body { font-family: Arial; padding: 20px; background: #f5f5f5; }
+    textarea { width: 100%; height: 200px; margin-top: 10px; font-family: monospace; }
+    button { padding: 10px 20px; margin-top: 10px; }
+    pre { background: #222; color: lime; padding: 10px; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h2>🧾 Swahili Bible Converter</h2>
+
+  <label>📘 Book Name:</label>
+  <input type="text" id="book" value="Mathayo"><br/>
+
+  <label>🔢 Chapter Number:</label>
+  <input type="number" id="chapter" value="5"><br/>
+
+  <label>✍️ Paste Swahili Text:</label>
+  <textarea id="inputText">1 Heri walio maskini wa roho... #faith</textarea><br/>
+
+  <button onclick="convert()">🔁 Convert</button>
+
+  <h3>📤 Result (Copy this):</h3>
+  <pre id="output"></pre>
+
+  <script>
+    function convert() {
+      const book = document.getElementById('book').value.trim();
+      const chapter = document.getElementById('chapter').value.trim();
+      const lines = document.getElementById('inputText').value.trim().split('\n');
+      const verses = [];
+
+      for (let line of lines) {
+        const match = line.match(/^(\d+)\s+(.*?)(\s+#.+)?$/);
+        if (match) {
+          const number = match[1];
+          const text = match[2].trim();
+          const tags = match[3]?.trim().replace(/^#/, '').split(/\s*#/);
+          verses.push({
+            en: "",
+            sw: text,
+            ...(tags ? { tags } : {})
+          });
+        }
+      }
+
+      const result = {
+        [book]: {
+          [chapter]: verses
+        }
+      };
+
+      document.getElementById('output').textContent = JSON.stringify(result, null, 2);
+    }
+  </script>
+</body>
+</html>

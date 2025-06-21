@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+<html lang="sw">
+<head>
+  <meta charset="UTF-8">
+  <title>🌍 Swahili Verse to JSON | SmartSurplus Bible Tool</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #000428, #004e92);
+      color: #fff;
+    }
+    .container {
+      max-width: 700px;
+      margin: 50px auto;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 12px #00ffff88;
+    }
+    h2 {
+      text-align: center;
+      color: #00ffff;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+      color: #fffa;
+    }
+    input, textarea, button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 6px;
+      border: none;
+      margin-top: 5px;
+      font-size: 16px;
+    }
+    textarea {
+      resize: vertical;
+      height: 150px;
+    }
+    button {
+      background: #00ffff;
+      color: #000;
+      font-weight: bold;
+      margin-top: 20px;
+      cursor: pointer;
+      box-shadow: 0 0 8px #00ffffaa;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #00cccc;
+    }
+    pre {
+      background: rgba(0,0,0,0.4);
+      padding: 10px;
+      border-radius: 6px;
+      overflow-x: auto;
+      margin-top: 20px;
+      color: #0f0;
+    }
+    nav {
+      text-align: center;
+      margin-top: 20px;
+    }
+    nav a {
+      color: #00ffff;
+      text-decoration: none;
+      font-size: 14px;
+      margin: 0 8px;
+    }
+    footer {
+      text-align: center;
+      font-size: 12px;
+      color: #aaa;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>📖 Swahili Verse ➜ JSON Converter</h2>
+
+    <label for="book">📘 Kitabu (e.g. Mathayo):</label>
+    <input type="text" id="book" placeholder="Mathayo">
+
+    <label for="chapter">🔢 Surah (e.g. 5):</label>
+    <input type="number" id="chapter" placeholder="5">
+
+    <label for="verses">✍️ Andika Mistari (moja kwa mstari):</label>
+    <textarea id="verses" placeholder="1. Heri wapole, maana watairithi nchi..."></textarea>
+
+    <label for="tags">🏷️ Maneno / Tags (comma-separated):</label>
+    <input type="text" id="tags" placeholder="amani, upendo, ushindi">
+
+    <button onclick="convertAndDownload()">💾 Convert & Download JSON</button>
+
+    <pre id="output"></pre>
+
+    <nav>
+      <a href="../index.html">🏠 Home</a> • 
+      <a href="index.html">📖 Bible</a> • 
+      <a href="swahili-converter.html">🧰 JSON Tool</a>
+    </nav>
+
+    <footer>
+      © 2025 <strong>Jaxxita Enterprises</strong> • SmartSurplus Z‑825 • Skylance Z1 • Bible Tools
+    </footer>
+  </div>
+
+  <script>
+    function convertAndDownload() {
+      const book = document.getElementById('book').value.trim();
+      const chapter = document.getElementById('chapter').value.trim();
+      const versesInput = document.getElementById('verses').value.trim();
+      const tags = document.getElementById('tags').value.trim().split(',').map(t => t.trim());
+
+      if (!book || !chapter || !versesInput) {
+        alert("⚠️ Tafadhali jaza taarifa zote.");
+        return;
+      }
+
+      const verses = versesInput
+        .split('\\n')
+        .filter(line => line.trim().length > 0)
+        .map(line => line.replace(/^\\d+\\.\\s*/, '')); // remove "1. " etc
+
+      const json = {
+        [book]: {
+          [chapter]: verses.map(v => ({
+            en: "",
+            sw: v,
+            tags: tags
+          }))
+        }
+      };
+
+      const outputText = JSON.stringify(json, null, 2);
+      document.getElementById('output').textContent = outputText;
+
+      const blob = new Blob([outputText], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${book}-${chapter}-swahili.json`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  </script>
+</body>
+</html>
