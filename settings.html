@@ -1,161 +1,188 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Z-825 Settings | SmartSurplus</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>System Settings – SmartSurplus Z-825</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Poppins&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --bg-color: #000;
-      --text-color: #fff;
-      --card-bg: rgba(255, 255, 255, 0.05);
-      --highlight: #00ffff;
-      --shadow: #00f0ff88;
+      --bg-dark: #000;
+      --bg-light: #f0f0f0;
+      --text-dark: #fff;
+      --text-light: #111;
+      --accent: #00ffff;
+      --card: rgba(255,255,255,0.05);
     }
-
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      background: var(--bg-color) url('https://images.unsplash.com/photo-1609921212029-f28c97f3f3c6?auto=format&fit=crop&w=1400&q=80') no-repeat center center fixed;
-      background-size: cover;
-      color: var(--text-color);
-      padding: 30px;
+      background: var(--bg-dark) url('https://images.unsplash.com/photo-1609921212029-f28c97f3f3c6?auto=format&fit=crop&w=1400&q=80') no-repeat center/cover fixed;
+      color: var(--text-dark);
+      transition: background 0.3s, color 0.3s;
     }
-
+    body.light {
+      background-color: var(--bg-light);
+      color: var(--text-light);
+    }
     .container {
-      max-width: 900px;
-      margin: auto;
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(10px);
-      padding: 40px;
-      border-radius: 15px;
-      box-shadow: 0 0 25px var(--shadow);
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 20px;
+      background: var(--card);
+      border-radius: 12px;
+      box-shadow: 0 0 25px rgba(0,255,255,0.5);
     }
-
     h1 {
       font-family: 'Orbitron', sans-serif;
+      color: var(--accent);
       text-align: center;
-      color: var(--highlight);
-      margin-bottom: 30px;
     }
-
-    nav {
+    .row {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 30px;
+      flex-wrap: wrap;
+      gap: 16px;
     }
-
-    nav a {
-      color: var(--highlight);
-      font-weight: bold;
-      text-decoration: none;
-      margin: 0 10px;
+    .col {
+      flex: 1 1 280px;
+      display: flex;
+      flex-direction: column;
     }
-
-    form {
-      display: grid;
-      gap: 20px;
-    }
-
     label {
       font-weight: bold;
-      color: var(--highlight);
-      display: block;
-      margin-bottom: 6px;
+      margin-top: 12px;
+      color: var(--accent);
     }
-
     input, select {
-      width: 100%;
-      padding: 12px;
+      padding: 10px;
+      border: none;
       border-radius: 8px;
-      border: none;
-      background: var(--card-bg);
-      color: var(--text-color);
-      font-size: 1rem;
+      margin-top: 6px;
+      background: var(--card);
+      color: var(--text-dark);
     }
-
-    .save-btn {
-      background-color: var(--highlight);
-      color: #000;
-      padding: 14px;
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      margin: 20px 0;
+    }
+    button {
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
       font-weight: bold;
-      border: none;
-      border-radius: 10px;
       cursor: pointer;
-      margin-top: 10px;
     }
-
-    .save-btn:hover {
-      background-color: #00cccc;
+    .btn-save {
+      background: var(--accent);
+      color: #000;
     }
-
+    .btn-toggle {
+      background: var(--accent);
+      color: #000;
+    }
+    .message {
+      text-align: center;
+      margin-top: 12px;
+      font-weight: bold;
+      color: lime;
+    }
     footer {
       text-align: center;
-      margin-top: 40px;
-      font-size: 0.9rem;
-      color: #aaa;
+      margin-top: 24px;
+      color: var(--text-dark);
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <nav>
-      <div>
-        <a href="index.html">🏠 Home</a>
-        <a href="proposals.html">📄 Proposals</a>
-        <a href="reports.html">📊 Reports</a>
-        <a href="settings.html">⚙️ Settings</a>
-      </div>
-      <div>
-        <span style="color:#aaa; font-size: 0.9rem;">Z-825 Panel</span>
-      </div>
-    </nav>
-
     <h1>⚙️ System Settings</h1>
 
-    <form>
-      <div>
-        <label>Monthly Contribution (KES)</label>
-        <input type="number" value="825" disabled />
-      </div>
+    <div class="actions">
+      <button class="btn-toggle" onclick="toggleTheme()">🌗 Toggle Theme</button>
+      <button class="btn-save" id="saveBtn">💾 Save Settings</button>
+    </div>
 
-      <div>
-        <label>Late Penalty (KES/week)</label>
-        <input type="number" value="100" disabled />
+    <div class="row">
+      <div class="col">
+        <label for="monthly">Monthly Contribution (KES)</label>
+        <input type="number" id="monthly" min="0" />
       </div>
-
-      <div>
-        <label>Annual Interest Rate (%)</label>
-        <input type="number" value="9.75" disabled />
+      <div class="col">
+        <label for="late">Late Payment Penalty (KES/week)</label>
+        <input type="number" id="late" min="0" />
       </div>
-
-      <div>
-        <label>Founder Bonus Rate (%)</label>
-        <input type="number" value="12" disabled />
+      <div class="col">
+        <label for="interest">Annual Interest Rate (%)</label>
+        <input type="number" id="interest" step="0.01" min="0" />
       </div>
-
-      <div>
-        <label>CPF Reserve Deduction (%)</label>
-        <input type="number" value="5" disabled />
+      <div class="col">
+        <label for="founder">Founder Bonus Rate (%)</label>
+        <input type="number" id="founder" step="0.01" min="0" />
       </div>
-
-      <div>
-        <label>Leadership Rotation (Months)</label>
-        <select disabled>
-          <option selected>Every 12 Months</option>
-          <option>Every 6 Months</option>
-          <option>No Rotation</option>
+      <div class="col">
+        <label for="cpf">CPF Reserve Deduction (%)</label>
+        <input type="number" id="cpf" step="0.01" min="0" />
+      </div>
+      <div class="col">
+        <label for="cycle">Leadership Rotation (Months)</label>
+        <select id="cycle">
+          <option value="12">Every 12 Months</option>
+          <option value="6">Every 6 Months</option>
+          <option value="None">No Rotation</option>
         </select>
       </div>
+    </div>
 
-      <button type="button" class="save-btn" disabled>💾 Save (Disabled on GitHub Pages)</button>
-    </form>
-
+    <div id="msg" class="message"></div>
     <footer>
-      SmartSurplus Z-825 | Jaxxita Enterprises © 2025
+      © 2025 Jaxxita Enterprises – SmartSurplus Z‑825
     </footer>
   </div>
+
+  <script>
+    // Load theme
+    if (localStorage.getItem('theme') === 'light') {
+      document.body.classList.add('light');
+    }
+
+    // Default or stored settings
+    const defaults = {
+      monthly: 825, late: 100, interest: 9.75,
+      founder: 12, cpf: 5, cycle: '12'
+    };
+
+    function loadSettings() {
+      const s = JSON.parse(localStorage.getItem('z825_settings') || '{}');
+      document.getElementById('monthly').value = s.monthly ?? defaults.monthly;
+      document.getElementById('late').value = s.late ?? defaults.late;
+      document.getElementById('interest').value = s.interest ?? defaults.interest;
+      document.getElementById('founder').value = s.founder ?? defaults.founder;
+      document.getElementById('cpf').value = s.cpf ?? defaults.cpf;
+      document.getElementById('cycle').value = s.cycle ?? defaults.cycle;
+    }
+
+    function saveSettings() {
+      const s = {
+        monthly: parseFloat(document.getElementById('monthly').value),
+        late: parseFloat(document.getElementById('late').value),
+        interest: parseFloat(document.getElementById('interest').value),
+        founder: parseFloat(document.getElementById('founder').value),
+        cpf: parseFloat(document.getElementById('cpf').value),
+        cycle: document.getElementById('cycle').value
+      };
+      localStorage.setItem('z825_settings', JSON.stringify(s));
+      document.getElementById('msg').textContent = '✅ Settings saved.';
+      setTimeout(() => document.getElementById('msg').textContent = '', 3000);
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('light');
+      localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : '');
+    }
+
+    document.getElementById('saveBtn').addEventListener('click', saveSettings);
+    loadSettings();
+  </script>
 </body>
 </html>
