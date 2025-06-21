@@ -111,7 +111,7 @@
 
     <nav id="navLinks">
       <a href="about.html">📘 About</a>
-      <a href="admin-dashboard.html">🛠️ Admin Panel</a>
+      <a href="chatroom.html">💬 Member Chat Room</a>
       <a href="dashboard.html">📋 Dashboard</a>
       <a href="profitcalculator.html">📈 Profit Calculator</a>
       <a href="proposal.html">📝 Proposal</a>
@@ -159,7 +159,6 @@
     rotateQuote();
     setInterval(rotateQuote, 7000);
 
-    // Handle session display
     const user = localStorage.getItem("user");
     const role = localStorage.getItem("role");
     const authNav = document.getElementById("authLinks");
@@ -181,7 +180,8 @@
         'procurement': 'procurement-dashboard.html',
         'audit': 'audit-dashboard.html',
         'executive': 'admin-dashboard.html',
-        'systems': 'systems-dashboard.html'
+        'systems': 'systems-dashboard.html',
+        'member': 'chatroom.html'
       };
       return dashboards[role] || 'dashboard.html';
     }
