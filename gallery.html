@@ -6,8 +6,12 @@
   <title>Gallery | SmartSurplus Z‑825</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet"/>
   <style>
+    * {
+      box-sizing: border-box;
+      margin: 0; padding: 0;
+    }
+
     body {
-      margin: 0;
       font-family: 'Poppins', sans-serif;
       background: linear-gradient(to right, #000428, #004e92);
       color: white;
@@ -17,8 +21,30 @@
     h1 {
       text-align: center;
       color: #00ffff;
-      margin-bottom: 30px;
+      margin-bottom: 10px;
       text-shadow: 0 0 8px #00ffff88;
+    }
+
+    .filters {
+      text-align: center;
+      margin: 20px auto;
+    }
+
+    .filters button {
+      background: #00ffff;
+      color: #000;
+      border: none;
+      margin: 5px;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .filters button:hover,
+    .filters button.active {
+      background: #00cccc;
     }
 
     .gallery {
@@ -29,18 +55,42 @@
       margin: auto;
     }
 
-    .gallery img {
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.4s;
+    }
+
+    .gallery-item img {
       width: 100%;
       height: 200px;
       object-fit: cover;
       border-radius: 10px;
       box-shadow: 0 0 10px #00ffff55;
       cursor: pointer;
-      transition: transform 0.3s ease;
+      transition: transform 0.4s ease;
     }
 
-    .gallery img:hover {
-      transform: scale(1.03);
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .gallery-item .download-btn {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(0,255,255,0.8);
+      color: #000;
+      padding: 6px 10px;
+      font-size: 13px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      display: none;
+    }
+
+    .gallery-item:hover .download-btn {
+      display: inline-block;
     }
 
     /* Lightbox Styles */
@@ -50,7 +100,7 @@
       z-index: 9999;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.9);
+      background: rgba(0, 0, 0, 0.95);
       justify-content: center;
       align-items: center;
     }
@@ -68,21 +118,58 @@
       color: #ccc;
       font-size: 0.9rem;
     }
+
+    @media(max-width: 600px){
+      .gallery-item img {
+        height: 150px;
+      }
+    }
   </style>
 </head>
 <body>
 
-  <h1>📸 SmartSurplus Z‑825 Gallery</h1>
+  <h1>📸 Jaxxita Gallery | SmartSurplus Z‑825 Showcase</h1>
 
-  <div class="gallery">
-    <img src="images/gallery1.JPG" alt="Gallery 1" onclick="openLightbox(this.src)">
-    <img src="images/gallery2.JPG" alt="Gallery 2" onclick="openLightbox(this.src)">
-    <img src="images/gallery3.JPG" alt="Gallery 3" onclick="openLightbox(this.src)">
-    <img src="images/gallery4.JPG" alt="Gallery 4" onclick="openLightbox(this.src)">
-    <img src="images/gallery5.JPG" alt="Gallery 5" onclick="openLightbox(this.src)">
-    <img src="images/gallery6.JPG" alt="Gallery 6" onclick="openLightbox(this.src)">
-    <img src="images/gallery7.JPG" alt="Gallery 7" onclick="openLightbox(this.src)">
-    <img src="images/gallery8.JPG" alt="Gallery 8" onclick="openLightbox(this.src)">
+  <div class="filters">
+    <button class="active" onclick="filterGallery('all')">All</button>
+    <button onclick="filterGallery('moments')">Moments</button>
+    <button onclick="filterGallery('missions')">Missions</button>
+    <button onclick="filterGallery('movement')">Movement</button>
+  </div>
+
+  <div class="gallery" id="gallery">
+    <div class="gallery-item moments">
+      <img src="images/gallery1.JPG" alt="Gallery 1" onclick="openLightbox(this.src)">
+      <a class="download-btn" href="images/gallery1.JPG" download>⬇ Download</a>
+    </div>
+    <div class="gallery-item missions">
+      <img src="images/gallery2.JPG" alt="Gallery 2" onclick="openLightbox(this.src)">
+      <a class="download-btn" href="images/gallery2.JPG" download>⬇ Download</a>
+    </div>
+    <div class="gallery-item movement">
+      <img src="images/gallery3.JPG" alt="Gallery 3" onclick="openLightbox(this.src)">
+      <a class="download-btn" href="images/gallery3.JPG" download>⬇ Download</a>
+    </div>
+    <div class="gallery-item moments">
+      <img src="images/gallery4.JPG" alt="Gallery 4" onclick="openLightbox(this.src)">
+      <a class="download-btn" href="images/gallery4.JPG" download>⬇ Download</a>
+    </div>
+    <div class="gallery-item missions">
+      <img src="images/gallery5.JPG" alt="Gallery 5" onclick="openLightbox(this.src)">
+      <a class="download-btn" href="images/gallery5.JPG" download>⬇ Download</a>
+    </div>
+    <div class="gallery-item movement">
+      <img src="images/gallery6.JPG" alt="Gallery 6" onclick="openLightbox(this.src)">
+      <a class="download-btn" href="images/gallery6.JPG" download>⬇ Download</a>
+    </div>
+    <div class="gallery-item moments">
+      <img src="images/gallery7.JPG" alt="Gallery 7" onclick="openLightbox(this.src)">
+      <a class="download-btn" href="images/gallery7.JPG" download>⬇ Download</a>
+    </div>
+    <div class="gallery-item movement">
+      <img src="images/gallery8.JPG" alt="Gallery 8" onclick="openLightbox(this.src)">
+      <a class="download-btn" href="images/gallery8.JPG" download>⬇ Download</a>
+    </div>
   </div>
 
   <!-- Lightbox Viewer -->
@@ -91,7 +178,7 @@
   </div>
 
   <footer>
-    © 2025 Jaxxita Capital • SmartSurplus Z‑825 • Project Skylance Z1
+    © 2025 Jaxxita Capital • SmartSurplus Z‑825 • Skylance Z1
   </footer>
 
   <script>
@@ -102,6 +189,22 @@
 
     function closeLightbox() {
       document.getElementById("lightbox").style.display = "none";
+    }
+
+    function filterGallery(category) {
+      const items = document.querySelectorAll(".gallery-item");
+      const buttons = document.querySelectorAll(".filters button");
+
+      buttons.forEach(btn => btn.classList.remove("active"));
+      event.target.classList.add("active");
+
+      items.forEach(item => {
+        if (category === "all") {
+          item.style.display = "block";
+        } else {
+          item.style.display = item.classList.contains(category) ? "block" : "none";
+        }
+      });
     }
   </script>
 
